@@ -50,24 +50,11 @@ export default class AppHeader extends Component {
 
 						<div className="header-title-wrapper" onClick={this.navigateToHomePage}>
 							<img src={logo} className="content logo" alt="bramgiessen.com logo"/>
-							<span className="content">Youtube Video Sync • React, Redux & Socket.IO</span>
+							<span className="content">Youtube Video Sync</span>
 						</div>
 
 						<ul className="header-actions">
 							{this.renderSearchButton ( user.userName )}
-							<li>
-								<a title="Visit my portfolio site" href="http://bramgiessen.com" target="_blank"
-								   rel="noopener noreferrer">
-									<span className="btn btn-icon fa fa-globe"/>
-								</a>
-							</li>
-							<li>
-								<a title="Open this project on Github"
-								   href="https://github.com/brambo48/react-youtube-sync"
-								   target="_blank" rel="noopener noreferrer">
-									<span className="btn btn-icon fa fa-github"/>
-								</a>
-							</li>
 						</ul>
 
 					</div>

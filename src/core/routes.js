@@ -2,6 +2,7 @@ import App from '../components/app/App'
 import BrowsePage from '../pages/browse/BrowsePage'
 import PartyPage from '../pages/party/PartyPage'
 import SearchPage from '../pages/search/SearchPage'
+import LoginPage from '../pages/login/LoginPage'
 
 
 export const routes = {
@@ -20,6 +21,10 @@ export const routes = {
 		{
 			path: '/search/:query',
 			components: SearchPage
+		},
+		{
+			path: '/login',
+			components: LoginPage
 		}
 	]
 };

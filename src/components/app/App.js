@@ -10,6 +10,7 @@ import 'font-awesome/css/font-awesome.min.css'
 // Components
 import AppHeader from '../appHeader/AppHeader'
 import SetUserNamePopup from '../setUserNamePopup/SetUserNamePopup'
+import LoadingIndicator from '../loadingIndicator/LoadingIndicator'
 
 // Actions
 import { appActions } from "../../core/app"
@@ -62,7 +63,7 @@ class App extends Component {
 					{/* Render the child component passed by react-router: */}
 					{this.props.children}
 				</main>
-
+				<LoadingIndicator showLoadingAnnimation={true}/>
 			</div>
 		)
 	}

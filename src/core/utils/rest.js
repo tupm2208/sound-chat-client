@@ -9,11 +9,10 @@ export const restUtils = {
 		} else {
 			return Promise.resolve ( response.json () )
 				.then ( message => {
-					const error = new Error ( `${message.message} (code ${message.statusCode})` )
-					error.status = response.status
-					error.statusCode = message.statusCode
-
-					throw error
+					throw {
+						status: false,
+						message: message.error_message
+					}
 				} )
 		}
 	}
