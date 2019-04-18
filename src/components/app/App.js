@@ -9,13 +9,13 @@ import 'font-awesome/css/font-awesome.min.css'
 
 // Components
 import AppHeader from '../appHeader/AppHeader'
-import SetUserNamePopup from '../setUserNamePopup/SetUserNamePopup'
 import LoadingIndicator from '../loadingIndicator/LoadingIndicator'
 
 // Actions
 import { appActions } from "../../core/app"
 import { searchActions } from "../../core/search"
 import { userActions } from "../../core/user"
+import { loadingActions } from '../../core/loading'
 
 class App extends Component {
 	static propTypes = {
@@ -31,15 +31,16 @@ class App extends Component {
 
 	componentWillUpdate ( nextProps ) {
 		// Check if the current path has been changed, if so -> navigate to new path
-		if ( nextProps.app.currentPath !== this.props.app.currentPath ) {
-			this.props.router.push ( nextProps.app.currentPath )
-		}
+		// if ( nextProps.app.currentPath !== this.props.router.location.pathname) {
+		// 	// console.log("nextProps.app.currentPath: ", nextProps.app.currentPath)
+		// 	this.props.router.push ( nextProps.app.currentPath )
+		// }
 
 		// If the partyId changes -> navigate to new party
-		if ( nextProps.party.partyId !== this.props.party.partyId ) {
-			// Navigate to newly created party
-			this.props.navigateToPath ( `/party/${nextProps.party.partyId}` )
-		}
+		// if ( nextProps.party.partyId !== this.props.party.partyId ) {
+		// 	// Navigate to newly created party
+		// 	this.props.navigateToPath ( `/party/${nextProps.party.partyId}` )
+		// }
 	}
 
 	render () {
@@ -54,16 +55,11 @@ class App extends Component {
 					router={this.props.router}
 				/>
 
-				<SetUserNamePopup
-					isVisible={!this.props.user || !this.props.user.userName}
-					handleSetUserName={this.props.setUserName}
-				/>
-
 				<main className="main">
 					{/* Render the child component passed by react-router: */}
 					{this.props.children}
 				</main>
-				<LoadingIndicator showLoadingAnnimation={true}/>
+				<LoadingIndicator showLoadingAnnimation={this.props.loading}/>
 			</div>
 		)
 	}
@@ -78,7 +74,8 @@ const mapStateToProps = ( state ) => {
 		search: state.search,
 		user: state.user,
 		app: state.app,
-		party: state.party
+		party: state.party,
+		loading: state.loading.status
 	}
 }
 
@@ -86,7 +83,9 @@ const mapDispatchToProps = {
 	navigateToPath: appActions.navigateToPath,
 	handleSearch: searchActions.handleSearch,
 	toggleSearch: searchActions.toggleSearchField,
-	setUserName: userActions.setUserName
+	setUserName: userActions.setUserName,
+	startLoading: loadingActions.startLoading,
+	stopLoading: loadingActions.stopLoading
 }
 
 App = connect ( mapStateToProps, mapDispatchToProps ) ( App )

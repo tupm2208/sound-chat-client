@@ -17,8 +17,9 @@ export const loginAction = {
 	}),
 
 
-	login: ( email, password ) => {
+	login: ( email, password, router ) => {
 		return async function ( dispatch ) {
+			dispatch({type: "START_LOADING"})
 			await baseApi.login(email, password).then( res => {
 				
 				const {data, message, access_token} = res;
@@ -26,12 +27,17 @@ export const loginAction = {
 				sessionStorage.setItem('access_token', access_token);
 
 				dispatch (loginAction.loginSuccess ({message, status: true}))
+				// dispatch ({
+				// 	type: 'NAVIGATE_TO_PATH',
+				// 	payload: '/'
+				// })
+				router.push('/')
 			}, error => {
 				console.log(error);
 				
 				dispatch(loginAction.loginError(error))
 			})
-
+			dispatch({type: "STOP_LOADING"})
 			
 		}
 	}

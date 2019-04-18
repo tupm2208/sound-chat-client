@@ -1,42 +1,32 @@
 // Libs & utils
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 
 // CSS
 import './LoginPage.css'
+import {lcStorage} from '../../core/utils/localStorage';
 
 // Constants
-import { initialVideoQuery } from '../../core/constants'
 
 // Actions
-import { appActions } from '../../core/app'
-import { userActions } from '../../core/user'
 import { loginAction } from '../../core/login'
 
 class LoginPage extends Component {
 	static propTypes = {
-		// isFetchingVideos: PropTypes.bool.isRequired,
-		// youtubeVideos: PropTypes.array.isRequired,
-		// user: PropTypes.object.isRequired,
-		// navigateToPath: PropTypes.func.isRequired,
-		// disconnectFromAllParties: PropTypes.func.isRequired,
-		// loadYoutubeVideos: PropTypes.func.isRequired,
-		// handleVideoSelection: PropTypes.func.isRequired,
 	}
 
 	constructor(props) {
 		super(props)
-		this.state = {"email": "", password: "", "isRemember": true}
+		this.state = {"email": "", password: "", "isRemember": false}
 		this.handleChange = this.handleChange.bind(this);
 		this.login = this.login.bind(this);
 	}
 
 	componentDidMount () {
 
-		if(localStorage.getItem("isRemember")) {
-			const email = localStorage.getItem('email') || "";
-			const password = localStorage.getItem("password") || "";
+		if(lcStorage.get("isRemember")) {
+			const email = lcStorage.get('email') || "";
+			const password = lcStorage.get("password") || "";
 
 			this.setState({email, password, isRemember: true});
 		}
@@ -49,18 +39,32 @@ class LoginPage extends Component {
 		this.setState({[name]: name === 'isRemember'? checked: value});
 	}
 
-	login(e) {
-		const {email, password} = this.state;
-		const {login} = this.props;
+	handleKeyDown(e) {
+		if (e.key === 'Enter') {
+		  this.login(e);
+		}
+	}
 
-		login(email, password);
+	login(e) {
+		const {email, password, isRemember} = this.state;
+		const {login, router} = this.props;
+
+		if(isRemember) {
+			lcStorage.set('email', email);
+			lcStorage.set('password', password);
+			lcStorage.set('isRemember', isRemember);
+		} else {
+			lcStorage.set('email', '');
+			lcStorage.set('password', '');
+			lcStorage.set('isRemember', false);
+		}
+		login(email, password, router);
 		e.preventDefault()
 	}
 
 	render () {
 
 		const {message} = this.props;
-		console.log("message", message)
 		return (
 			<div className="body">
 				<h1 className="title-agile text-center"></h1>
@@ -71,7 +75,7 @@ class LoginPage extends Component {
 					</div>
 					<div className="content-bottom">
 
-						<form onSubmit={this.login}>
+						<form onSubmit={this.login} onKeyDown={this.handleKeyDown.bind(this)}>
 							<div className="err-msg">
 							{message}
 							</div>
@@ -96,10 +100,7 @@ class LoginPage extends Component {
 										<p className="slider-word">keep me signed in</p>   
 									</label>
 								</li>
-								{/* <li>
-										className="text-right"
-									<a routerLink="forgetpassword" style="color: navy;" >Forget your password</a>
-								</li> */}
+								
 								<li>
 									<a style={{color: "navy"}} className="text-right">Create New Account</a>
 								</li>
@@ -128,8 +129,6 @@ const mapStateToProps = ( state ) => {
 }
 
 const mapDispatchToProps = {
-	navigateToPath: appActions.navigateToPath,
-	disconnectFromAllParties: userActions.disconnectFromAllParties,
 	login: loginAction.login,
 }
 

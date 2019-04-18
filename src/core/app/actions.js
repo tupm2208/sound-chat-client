@@ -10,7 +10,7 @@ export const appActions = {
 	 */
 	navigateToPath: path => ({
 		type: appActions.NAVIGATE_TO_PATH,
-		payload: `${path}?index=${generalUtils.generateRandomId(15)}`
+		payload: `${path}`
 	})
 
 }
