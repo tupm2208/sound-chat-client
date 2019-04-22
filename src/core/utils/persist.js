@@ -13,7 +13,7 @@ export const persistUtils = {
 	 */
 	loadProperty: ( key, defaultValue = undefined ) => {
 		try {
-			const value = localStorage[ key ]
+			const value = sessionStorage[ key ]
 
 			return value !== undefined
 				? JSON.parse ( value )
@@ -32,7 +32,7 @@ export const persistUtils = {
 	 */
 	saveProperty: ( key, value ) => {
 		try {
-			localStorage[ key ] = JSON.stringify ( value )
+			sessionStorage[ key ] = JSON.stringify ( value )
 		}
 		catch ( err ) {
 			console.error ( err )

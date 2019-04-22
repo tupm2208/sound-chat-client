@@ -1,6 +1,7 @@
 // Utils & libs
 
 import { baseApi } from '../api/index'
+import { ssStorage } from '../utils/sessionStorage'
 
 export const loginAction = {
 	LOGIN_SUCCESS_STATE: 'LOGIN_SUCCESS_STATE',
@@ -23,8 +24,8 @@ export const loginAction = {
 			await baseApi.login(email, password).then( res => {
 				
 				const {data, message, access_token} = res;
-				sessionStorage.setItem('user', JSON.stringify(data));
-				sessionStorage.setItem('access_token', access_token);
+				ssStorage.set('user', data);
+				ssStorage.set('access_token', access_token);
 
 				dispatch (loginAction.loginSuccess ({message, status: true}))
 				// dispatch ({

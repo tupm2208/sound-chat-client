@@ -22,12 +22,16 @@ export const partyActions = {
 	// as messages over WEBSOCKETS to the backend/server
     WS_TO_SERVER_CREATE_PARTY: 'WS_TO_SERVER_CREATE_PARTY',
     WS_TO_SERVER_SEND_MESSAGE_TO_PARTY: 'WS_TO_SERVER_SEND_MESSAGE_TO_PARTY',
-    WS_TO_SERVER_SET_VIDEO_PLAYER_STATE: 'WS_TO_SERVER_SET_VIDEO_PLAYER_STATE',
+	WS_TO_SERVER_SET_VIDEO_PLAYER_STATE: 'WS_TO_SERVER_SET_VIDEO_PLAYER_STATE',
+	
+	ROOM_CREATED: 'ROOM_CREATED',
 
-	createParty: (videoDetails, videoSource) => ({
-		type: partyActions.WS_TO_SERVER_CREATE_PARTY,
-        payload: { ...videoDetails, videoSource }
-	}),
+	createParty: (videoDetails, videoSource, id) => {
+		return {
+			type: partyActions.WS_TO_SERVER_CREATE_PARTY,
+			payload: { ...videoDetails, videoSource }
+		}
+	},
 
 	sendMessageToParty: ( message, userName, partyId ) => ({
 		type: partyActions.WS_TO_SERVER_SEND_MESSAGE_TO_PARTY,
@@ -37,6 +41,8 @@ export const partyActions = {
 	emitNewPlayerStateForPartyToServer: ( newPlayerState, partyId ) => ({
 		type: partyActions.WS_TO_SERVER_SET_VIDEO_PLAYER_STATE,
 		payload: { newPlayerState, partyId }
-	})
+	}),
+
+
 
 }

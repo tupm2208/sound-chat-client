@@ -8,7 +8,7 @@
 
 export const userActions = {
 	// Normal / local redux actions
-	SET_USER_NAME: 'SET_USER_NAME',
+	SET_USER: 'SET_USER',
 
 	// OUTGOING TO SERVER
 	// Actions that after dispatching automatically get sent
@@ -18,7 +18,7 @@ export const userActions = {
 	WS_TO_SERVER_SET_CLIENT_READY_STATE: 'WS_TO_SERVER_SET_CLIENT_READY_STATE',
 
 	setUserName: userName => ({
-		type: userActions.SET_USER_NAME,
+		type: userActions.SET_USER,
 		payload: userName
 	}),
 

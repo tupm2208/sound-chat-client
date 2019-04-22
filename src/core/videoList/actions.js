@@ -1,8 +1,10 @@
 // API
-import { youtubeApi } from '../api/index'
+import { youtubeApi, roomApi, mediaApi } from '../api/index'
+
 
 // Import external actions
 import { partyActions } from '../party/index'
+import { persistUtils } from '../utils/persist'
 
 export const videoListActions = {
 	IS_FETCHING: 'IS_FETCHING',
@@ -27,10 +29,17 @@ export const videoListActions = {
 	 * @param videoSource
 	 * @returns {Function}
 	 */
-	handleVideoSelection: (videoDetails, videoSource) => {
-		return async function ( dispatch ) {
-			// Create a new party
-			dispatch(partyActions.createParty(videoDetails, videoSource))
+	handleVideoSelection: (userId, videoId, router) => {
+		return function ( dispatch ) {
+			
+			roomApi.create(userId).then( res => {
+				console.log("create room success: ", res)
+
+				mediaApi.create(res.data.id, `https://www.youtube.com/watch?v=${videoId}`).then( mediaRes => {
+					console.log("media created: ", mediaRes);
+					router.push(`/party/${res.id}`);
+				})
+			})
 		}
 	},
 

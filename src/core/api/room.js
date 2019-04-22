@@ -1,15 +1,15 @@
 import { httpRequest } from './httpRequest'
 
-export const baseApi = {
+export const roomApi = {
 	/**
 	 * Fetch video search results from the Youtube API
 	 * @param username
 	 * @param password
 	 * @returns {Promise.<TResult>}
 	 */
-	login: ( email, password ) => {
-        const params = {email, password}
+	create: ( id ) => {
+        const params = {id}
 
-		return httpRequest.post('login', params);
+		return httpRequest.post('rooms', params);
 	}
 }
