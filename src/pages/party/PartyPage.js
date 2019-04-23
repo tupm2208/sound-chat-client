@@ -14,31 +14,32 @@ import UserList from '../../components/userList/UserList'
 
 // Actions
 import { partyActions } from '../../core/party'
+import { mediaActions } from '../../core/media'
 import { userActions } from '../../core/user'
 import { videoPlayerActions } from '../../core/videoPlayer'
 
 class PartyPage extends Component {
 	static propTypes = {
-		selectedVideo: PropTypes.object.isRequired,
-		userName: PropTypes.string,
-		partyId: PropTypes.string,
-		partyState: PropTypes.string.isRequired,
-		usersInParty: PropTypes.array.isRequired,
-		messagesInParty: PropTypes.array.isRequired,
-		partyVideoPlayerState: PropTypes.object.isRequired,
-		userVideoPlayerState: PropTypes.object.isRequired,
-		videoPlayerIsMuted: PropTypes.bool.isRequired,
-		videoProgress: PropTypes.number.isRequired,
-		videoPlayerIsMaximized: PropTypes.bool.isRequired,
-		videoPlayerIsLoaded: PropTypes.bool.isRequired,
-		connectToParty: PropTypes.func.isRequired,
-		sendMessageToParty: PropTypes.func.isRequired,
-		emitNewPlayerStateForPartyToServer: PropTypes.func.isRequired,
-		onPlayerStateChange: PropTypes.func.isRequired,
-		setPlayerMutedState: PropTypes.func.isRequired,
-		setPlayerIsLoadedState: PropTypes.func.isRequired,
-		handleMaximizeBtnPressed: PropTypes.func.isRequired,
-		setPlayerProgress: PropTypes.func.isRequired
+		// selectedVideo: PropTypes.object.isRequired,
+		// userName: PropTypes.string,
+		// partyId: PropTypes.string,
+		// partyState: PropTypes.string.isRequired,
+		// usersInParty: PropTypes.array.isRequired,
+		// messagesInParty: PropTypes.array.isRequired,
+		// partyVideoPlayerState: PropTypes.object.isRequired,
+		// userVideoPlayerState: PropTypes.object.isRequired,
+		// videoPlayerIsMuted: PropTypes.bool.isRequired,
+		// videoProgress: PropTypes.number.isRequired,
+		// videoPlayerIsMaximized: PropTypes.bool.isRequired,
+		// videoPlayerIsLoaded: PropTypes.bool.isRequired,
+		// connectToParty: PropTypes.func.isRequired,
+		// sendMessageToParty: PropTypes.func.isRequired,
+		// emitNewPlayerStateForPartyToServer: PropTypes.func.isRequired,
+		// onPlayerStateChange: PropTypes.func.isRequired,
+		// setPlayerMutedState: PropTypes.func.isRequired,
+		// setPlayerIsLoadedState: PropTypes.func.isRequired,
+		// handleMaximizeBtnPressed: PropTypes.func.isRequired,
+		// setPlayerProgress: PropTypes.func.isRequired
 	}
 
 	constructor ( props ) {
@@ -47,8 +48,12 @@ class PartyPage extends Component {
 	}
 
 	componentDidMount () {
-		const { connectToParty, userName } = this.props
-
+		const { connectToParty, userName, router, getParty, subscribeRoom, getRoomInfo } = this.props
+		console.log("router: ", router);
+		const id = router.params.partyId;
+		getParty(id)
+		subscribeRoom(id)
+		getRoomInfo(id);
 		// If this user has a userName -> try to connect to the selected party
 		if ( userName ) {
 			connectToParty ( userName, this.partyId )
@@ -169,7 +174,7 @@ const mapStateToProps = ( state ) => {
 		partyState: state.party.partyState,
 		usersInParty: state.party.usersInParty,
 		messagesInParty: state.party.messagesInParty,
-		partyVideoPlayerState: state.party.videoPlayerState,
+		partyVideoPlayerState: state.currentMedia,
 		userVideoPlayerState: state.videoPlayer.videoPlayerState,
 		videoPlayerIsMuted: state.videoPlayer.videoPlayerIsMuted,
 		videoProgress: state.videoPlayer.videoProgress,
@@ -181,12 +186,15 @@ const mapStateToProps = ( state ) => {
 const mapDispatchToProps = {
 	connectToParty: userActions.connectToParty,
 	sendMessageToParty: partyActions.sendMessageToParty,
-	emitNewPlayerStateForPartyToServer: partyActions.emitNewPlayerStateForPartyToServer,
+	emitNewPlayerStateForPartyToServer: mediaActions.emitNewPlayerStateForPartyToServer,
 	onPlayerStateChange: videoPlayerActions.onPlayerStateChange,
 	setPlayerMutedState: videoPlayerActions.setPlayerMutedState,
 	setPlayerIsLoadedState: videoPlayerActions.setPlayerIsLoadedState,
 	handleMaximizeBtnPressed: videoPlayerActions.handleMaximizeBtnPressed,
-	setPlayerProgress: videoPlayerActions.setPlayerProgress
+	setPlayerProgress: videoPlayerActions.setPlayerProgress,
+	getParty: partyActions.getParty,
+	subscribeRoom: partyActions.subscribeRoom,
+	getRoomInfo: partyActions.getRoomInfo
 }
 
 PartyPage = connect (

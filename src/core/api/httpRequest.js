@@ -12,6 +12,16 @@ function getHeaders() {
     }
 }
 
+function parseParams(params = {}) {
+    const paramArray = [];
+
+    for (let i in params) {
+        paramArray.push(`${i}=${params[i]}`)
+    }
+
+    return paramArray.join('&')
+}
+
 export const httpRequest = {
 	/**
 	 * Fetch video search results from the Youtube API
@@ -20,7 +30,7 @@ export const httpRequest = {
 	 * @returns {Promise.<TResult>}
 	 */
 
-    post: (uri, params) => {
+    post: (uri, params = {}) => {
         const options = {
             headers: getHeaders(),
             method: "POST",
@@ -58,13 +68,15 @@ export const httpRequest = {
 	 * @returns {Promise.<TResult>}
 	 */
 
-    get: (uri) => {
+    get: (uri, params = {}) => {
         const options = {
             headers: getHeaders(),
             method: "GET",
         }
 
-        return fetch ( `${BASE_URL}${uri}`, options )
+        delete options.headers["Content-Type"];
+
+        return fetch ( `${BASE_URL}${uri}?${parseParams(params)}`, options )
 			.then ( restUtils.handleRestResponse )
 			.then ( ( response ) => response )
     },

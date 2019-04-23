@@ -1,11 +1,6 @@
 // API
 import { youtubeApi, roomApi, mediaApi } from '../api/index'
 
-
-// Import external actions
-import { partyActions } from '../party/index'
-import { persistUtils } from '../utils/persist'
-
 export const videoListActions = {
 	IS_FETCHING: 'IS_FETCHING',
 	SET_YOUTUBE_RESULTS: 'SET_YOUTUBE_RESULTS',
@@ -37,7 +32,7 @@ export const videoListActions = {
 
 				mediaApi.create(res.data.id, `https://www.youtube.com/watch?v=${videoId}`).then( mediaRes => {
 					console.log("media created: ", mediaRes);
-					router.push(`/party/${res.id}`);
+					router.push(`/party/${res.data.id}`);
 				})
 			})
 		}

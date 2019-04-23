@@ -6,11 +6,11 @@ import ReduxThunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 import { Router, browserHistory } from 'react-router'
 import { routes } from './core/routes'
-import io from 'socket.io-client'
-import createSocketIoMiddleware from 'redux-socket.io';
+// import io from 'socket.io-client'
+// import createSocketIoMiddleware from 'redux-socket.io';
 
 // Constants
-import { WEBSOCKET_URL } from './core/constants'
+// import { WEBSOCKET_URL } from './core/constants'
 
 // CSS
 import './index.css'

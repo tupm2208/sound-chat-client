@@ -55,7 +55,7 @@ export const youtubeApi = {
 			'part': 'snippet',
 		} )
 
-		return fetch ( `${YOUTUBE_API_BASE_URL}/video?${params}`, options )
+		return fetch ( `${YOUTUBE_API_BASE_URL}/videos?${params}`, options )
 			.then ( restUtils.handleRestResponse )
 			.then ( ( response ) => response )
 	}

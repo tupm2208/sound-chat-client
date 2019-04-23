@@ -12,9 +12,9 @@ export const videoPlayerActions = {
 	SET_PLAYER_MAXIMIZED_STATE: 'SET_PLAYER_MAXIMIZED_STATE',
 	SET_PLAYER_PROGRESS: 'SET_PLAYER_PROGRESS',
 
-	setUserVideoPlayerState: playerState => ({
+	setUserVideoPlayerState: status => ({
 		type: videoPlayerActions.SET_USER_PLAYER_STATE,
-		payload: playerState
+		payload: status
 	}),
 
 	setPlayerIsLoadedState: bool => ({
@@ -50,7 +50,7 @@ export const videoPlayerActions = {
 	},
 
 	/**
-	 * Store the new users' playerState and let the server know about the users' new playerState
+	 * Store the new users' status and let the server know about the users' new status
 	 * Reason for debouncing: because Youtube always fires a pause event right before a buffering event,
 	 * we want to ignore this first, useless pause event
 	 */
@@ -62,12 +62,12 @@ export const videoPlayerActions = {
 }
 
 const debouncedPlayerStateChangeHandler = debounce ( ( dispatch, userVideoPlayerState ) => {
-	const clientIsReady = userVideoPlayerState.playerState !== 'buffering'
-	const timeInVideo = userVideoPlayerState.timeInVideo
+	const clientIsReady = userVideoPlayerState.status !== 'buffering'
+	const media_time = userVideoPlayerState.media_time
 
 	dispatch ( videoPlayerActions.setUserVideoPlayerState ( userVideoPlayerState ) )
 	dispatch ( userActions.emitClientReadyStateToServer ( {
 		clientIsReady,
-		timeInVideo
+		media_time
 	} ) )
 }, 500 )

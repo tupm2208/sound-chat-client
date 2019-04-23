@@ -5,31 +5,80 @@
 //					the middleware 'redux-socket.io' by prefixing these specific actions
 // 					with the string 'WS_TO_SERVER_'.
 //-------------------------------------
+import { roomApi, youtubeApi, pusherApi } from '../api/index'
 
 export const partyActions = {
 
-	// INCOMING FROM SERVER
-    // Actions that get initiated by incoming WEBSOCKET messages from the backend/server
-    WS_TO_CLIENT_SET_PARTY_ID: 'WS_TO_CLIENT_SET_PARTY_ID',
-    WS_TO_CLIENT_SET_PARTY_STATE: 'WS_TO_CLIENT_SET_PARTY_STATE',
-    WS_TO_CLIENT_SET_SELECTED_VIDEO: 'WS_TO_CLIENT_SET_SELECTED_VIDEO',
-    WS_TO_CLIENT_PARTY_MESSAGE_RECEIVED: 'WS_TO_CLIENT_PARTY_MESSAGE_RECEIVED',
-    WS_TO_CLIENT_SET_USERS_IN_PARTY: 'WS_TO_CLIENT_SET_USERS_IN_PARTY',
-	WS_TO_CLIENT_SET_PLAYER_STATE: 'WS_TO_CLIENT_SET_PLAYER_STATE',
-
-	// OUTGOING TO SERVER
-	// Actions that after dispatching automatically get sent
-	// as messages over WEBSOCKETS to the backend/server
-    WS_TO_SERVER_CREATE_PARTY: 'WS_TO_SERVER_CREATE_PARTY',
-    WS_TO_SERVER_SEND_MESSAGE_TO_PARTY: 'WS_TO_SERVER_SEND_MESSAGE_TO_PARTY',
-	WS_TO_SERVER_SET_VIDEO_PLAYER_STATE: 'WS_TO_SERVER_SET_VIDEO_PLAYER_STATE',
-	
+	GET_MEDIA_SUCCESSFUL: 'GET_MEDIA_SUCCESSFUL',
+	GET_VIDEO_FROM_ID_SUCCESSFUL: 'GET_VIDEO_FROM_ID_SUCCESSFUL',
 	ROOM_CREATED: 'ROOM_CREATED',
+	GET_ROOM_SUCCESSFUL: 'GET_ROOM_SUCCESSFUL',
+	GET_VIDEO_SUCCESSFUL: 'GET_VIDEO_SUCCESSFUL',
+	SET_VIDEO_PLAYER_STATE: 'SET_VIDEO_PLAYER_STATE',
 
-	createParty: (videoDetails, videoSource, id) => {
+	createParty: (videoDetails, videoSource) => {
 		return {
 			type: partyActions.WS_TO_SERVER_CREATE_PARTY,
 			payload: { ...videoDetails, videoSource }
+		}
+	},
+
+
+	subscribeRoom: (id) => {
+		return dispatch => {
+			const channel = pusherApi.pusher.subscribe(`presence-room-${id}-`);
+			channel.bind('play', (data) => {
+				console.log("play", data);
+				dispatch({
+					type: partyActions.SET_VIDEO_PLAYER_STATE,
+					payload: { status: 'playing'}
+				});
+			})
+
+			channel.bind('pause', (data) => {
+				console.log("pause", data);
+				dispatch({
+					type: partyActions.SET_VIDEO_PLAYER_STATE,
+					payload: {status: 'pausing'}
+				});
+			})
+			
+			channel.bind('seek', (data) => {
+				console.log("seek", data);
+			})
+
+			channel.bind('proceed', (data) => {
+				console.log("proceed", data);
+			})
+		}
+	},
+
+	getParty: (id) => {
+		return (dispatch) => {
+			roomApi.get(id, 'current').then( res => {
+				dispatch({
+					type: partyActions.GET_MEDIA_SUCCESSFUL,
+					payload: res.data
+				})
+				const youtubeId = res.data.url.split('v=')[1];
+				console.log("res media: ", youtubeId);
+				youtubeApi.fetchYoutubeIdResults(youtubeId).then( yRes => {
+					console.log("yres: ", yRes);
+
+					dispatch({
+						type: partyActions.GET_VIDEO_SUCCESSFUL,
+						payload: {
+							selectedVideo: {
+								videoSource: 'youtube',
+								...yRes.items[0],
+								...yRes.items[0].snippet
+							}
+						}
+					})
+				})
+			}, error => {
+				console.log("error :", error);
+			})
 		}
 	},
 
@@ -38,11 +87,21 @@ export const partyActions = {
 		payload: { message, userName, partyId }
 	}),
 
-	emitNewPlayerStateForPartyToServer: ( newPlayerState, partyId ) => ({
-		type: partyActions.WS_TO_SERVER_SET_VIDEO_PLAYER_STATE,
-		payload: { newPlayerState, partyId }
-	}),
+	getRoomInfo: (partyId) => {
 
+		return dispatch => {
 
+			roomApi.getRoomInfo(partyId).then( res => {
+				console.log("room info: ", res)
 
+				dispatch({
+					type: partyActions.GET_VIDEO_SUCCESSFUL,
+					payload: {
+						usersInParty: res.data.participants,
+						messagesInParty: res.data.messages
+					}
+				})
+			})
+		}
+	}
 }

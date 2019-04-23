@@ -10,6 +10,7 @@ import { userReducer } from './user'
 import { partyReducer } from './party'
 import { loginReducer } from './login'
 import { loadingReducer } from './loading'
+import { mediaReducer } from './media'
 
 export default combineReducers ( {
 	app: appReducer,
@@ -19,5 +20,6 @@ export default combineReducers ( {
 	search: searchReducer,
 	party: partyReducer,
 	login: loginReducer,
-	loading: loadingReducer
+	loading: loadingReducer,
+	currentMedia: mediaReducer
 } )

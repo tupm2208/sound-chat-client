@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { persistUtils } from '../../core/utils/persist'
 
 // CSS
 import './BrowsePage.css'
@@ -37,6 +38,18 @@ class BrowsePage extends Component {
 		this.props.disconnectFromAllParties ()
 	}
 
+	handleVideoSelection(videoDetail, videoType) {
+		const { handleVideoSelection, router } = this.props
+		const user = persistUtils.loadProperty('user', {});
+		if (!user.id) {
+			//show popup and redirect to loginpage
+			router.push('/login');
+		} else {
+			console.log("video: ", videoDetail);
+			handleVideoSelection(user.id, videoDetail.id, router)
+		}
+	}
+
 	render () {
 		const { user, isFetchingVideos, youtubeVideos, handleVideoSelection } = this.props
 
@@ -62,7 +75,7 @@ class BrowsePage extends Component {
 					<VideoList
 						showLoadingAnimation={isFetchingVideos}
 						youtubeVideos={youtubeVideos}
-						handleVideoSelection={handleVideoSelection}
+						handleVideoSelection={this.handleVideoSelection.bind(this)}
 					/>
 				</div>
 			</div>
