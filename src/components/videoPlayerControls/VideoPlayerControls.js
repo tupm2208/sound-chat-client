@@ -73,7 +73,7 @@ export default class VideoPlayerControls extends Component {
 					} }
 						 onClick={ ( event ) => {
 							 emitNewPlayerStateToServer ( {
-								 status: videoIsPlaying ? 'playing' : 'pausing',
+								 status: 'seeking',
 								 media_time: videoUtils.getAmountOfSecondsAtXPos ( event, videoDuration )
 							 }, partyId )
 						 } }>

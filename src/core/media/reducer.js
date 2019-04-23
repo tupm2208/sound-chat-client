@@ -15,10 +15,14 @@ export const mediaReducer = ( state = initialState, action ) => {
 	switch ( action.type ) {
 
 		case mediaActions.SET_VIDEO_PLAYER_STATE:
-		console.log("action: ", action)
+
+			// if(action.payload.status === 'seeking' ) {
+			// 	action.payload.status = 'pausing'
+			// }
 			return state.merge(action.payload)
 		
 		case mediaActions.GET_MEDIA_SUCCESSFUL:
+			
 			return state.merge(action.payload)
 
 		default:

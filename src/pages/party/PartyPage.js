@@ -62,6 +62,10 @@ class PartyPage extends Component {
 
 	componentDidUpdate ( prevProps, prevState ) {
 		// If the user now chose a userName -> connect to the selected party
+		const {partyVideoPlayerState, userVideoPlayerState, videoPlayerIsLoaded} = prevProps;
+		// console.log("previouProps: ", partyVideoPlayerState)
+		console.log("userVideoPlayerState: ", userVideoPlayerState.status)
+		// console.log("videoPlayerIsLoaded: ", videoPlayerIsLoaded)
 		if ( !prevProps.userName && this.props.userName ) {
 			this.props.connectToParty ( this.props.userName, this.partyId )
 		}

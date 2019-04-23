@@ -27,28 +27,12 @@ export const partyActions = {
 	subscribeRoom: (id) => {
 		return dispatch => {
 			const channel = pusherApi.pusher.subscribe(`presence-room-${id}-`);
-			channel.bind('play', (data) => {
-				console.log("play", data);
+			channel.bind('media_status_changed', (data) => {
+				console.log("media_status_changed", data);
 				dispatch({
 					type: partyActions.SET_VIDEO_PLAYER_STATE,
-					payload: { status: 'playing'}
+					payload: data.data
 				});
-			})
-
-			channel.bind('pause', (data) => {
-				console.log("pause", data);
-				dispatch({
-					type: partyActions.SET_VIDEO_PLAYER_STATE,
-					payload: {status: 'pausing'}
-				});
-			})
-			
-			channel.bind('seek', (data) => {
-				console.log("seek", data);
-			})
-
-			channel.bind('proceed', (data) => {
-				console.log("proceed", data);
 			})
 		}
 	},
