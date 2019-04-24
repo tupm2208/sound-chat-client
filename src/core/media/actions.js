@@ -14,14 +14,12 @@ export const mediaActions = {
 
 	emitNewPlayerStateForPartyToServer: ( newPlayerState, partyId ) => {
 		return (dispatch) => {
-			// roomApi.changeMediaState(partyId, newPlayerState).then( res => {
-			// 	// console.log("emit: ", res);
-			// })
-
-			dispatch({
-				type: mediaActions.SET_VIDEO_PLAYER_STATE,
-				payload: newPlayerState
-			});
+		
+			roomApi.changeMediaState(partyId,newPlayerState);
+			// dispatch({
+			// 	type: 'SET_USER_PLAYER_STATE',
+			// 	payload: 'buffering'
+			// });
 		}
 	},
 

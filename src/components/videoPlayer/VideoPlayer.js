@@ -146,13 +146,6 @@ export default class VideoPlayer extends Component {
 					onPlay={() => {
 						// Make sure that if this onPlay handler is called accidentally while the server is still
 						// telling us to pause, that we DO actually remain pausing
-						if(partyVideoPlayerState.status == "pausing") {
-							console.log("onPlay")
-							// this.constructUserPlayerState ( 'pausing', videoPlayer )
-							// onPlayerStateChange (
-							// 	this.constructUserPlayerState ( 'pausing', videoPlayer )
-							// )
-						}
 						if ( !videoIsPlaying ) {
 							videoPlayer.getInternalPlayer ().pauseVideo ()
 						}
@@ -161,16 +154,15 @@ export default class VideoPlayer extends Component {
 						)
 					}}
 					onPause={() => {
+						
 						onPlayerStateChange (
 							this.constructUserPlayerState ( 'pausing', videoPlayer )
 						)
-						console.log("onPause")
 					}}
 					onBuffer={() => {
 						onPlayerStateChange (
 							this.constructUserPlayerState ( 'buffering', videoPlayer )
 						)
-						console.log("onBuffer")
 					}}
 					onProgress={ setPlayerProgress }
 					config={ videoPlayerConfig }

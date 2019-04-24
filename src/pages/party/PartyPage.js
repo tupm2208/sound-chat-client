@@ -49,7 +49,7 @@ class PartyPage extends Component {
 
 	componentDidMount () {
 		const { connectToParty, userName, router, getParty, subscribeRoom, getRoomInfo } = this.props
-		console.log("router: ", router);
+		// console.log("router: ", router);
 		const id = router.params.partyId;
 		getParty(id)
 		subscribeRoom(id)
@@ -62,10 +62,15 @@ class PartyPage extends Component {
 
 	componentDidUpdate ( prevProps, prevState ) {
 		// If the user now chose a userName -> connect to the selected party
-		const {partyVideoPlayerState, userVideoPlayerState, videoPlayerIsLoaded} = prevProps;
-		// console.log("previouProps: ", partyVideoPlayerState)
-		console.log("userVideoPlayerState: ", userVideoPlayerState.status)
-		// console.log("videoPlayerIsLoaded: ", videoPlayerIsLoaded)
+		const {partyVideoPlayerState, userVideoPlayerState, emitNewPlayerStateForPartyToServer} = prevProps;
+
+		console.log("sst: ", this.props.userVideoPlayerState.status, "-", userVideoPlayerState.status)
+		if(this.props.userVideoPlayerState.status && partyVideoPlayerState.status === 'seeking' && userVideoPlayerState.status !== 'buffering') {
+			const {media_time} = partyVideoPlayerState;
+			console.log("trigger");
+			emitNewPlayerStateForPartyToServer({status: "ready", media_time}, this.partyId);
+		}
+		
 		if ( !prevProps.userName && this.props.userName ) {
 			this.props.connectToParty ( this.props.userName, this.partyId )
 		}

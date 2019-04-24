@@ -25,6 +25,8 @@ export default class ChatBox extends Component {
 	renderMessages = ( messages ) => {
 		const { userName } = this.props
 
+		// console.log("this.props: ", this.props)
+
 		return (
 			<div className="messages-wrapper">
 
@@ -48,16 +50,18 @@ export default class ChatBox extends Component {
 	}
 
 	submitChatMessage = ( event ) => {
-		const { onMessageSend, userName, partyId } = this.props
+		const { onMessageSend, partyId } = this.props
 
 		event.preventDefault ()
 		const inputValue = this.messageInput.value.trim ()
-		onMessageSend ( inputValue, userName, partyId )
+		onMessageSend ( inputValue, partyId )
 		this.messageInput.value = ''
 	}
 
 	render () {
 		const { messagesInParty } = this.props
+
+		console.log("message in party: ", messagesInParty)
 
 		return (
 			<div className="chat-box">

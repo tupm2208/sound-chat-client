@@ -5,7 +5,7 @@
 //					the middleware 'redux-socket.io' by prefixing these specific actions
 // 					with the string 'WS_TO_SERVER_'.
 //-------------------------------------
-import { roomApi, youtubeApi, pusherApi } from '../api/index'
+import { roomApi, youtubeApi, pusherApi, messageApi } from '../api/index'
 
 export const partyActions = {
 
@@ -29,10 +29,21 @@ export const partyActions = {
 			const channel = pusherApi.pusher.subscribe(`presence-room-${id}-`);
 			channel.bind('media_status_changed', (data) => {
 				console.log("media_status_changed", data);
+				data.data.status = data.event;
+				if(data.event === 'seeking') {
+					// dispatch({
+					// 	type: 'SET_USER_PLAYER_STATE',
+					// 	payload: {status: 'playing'}
+					// });
+				}
 				dispatch({
 					type: partyActions.SET_VIDEO_PLAYER_STATE,
 					payload: data.data
 				});
+			})
+
+			channel.bind('new_message', data => {
+				console.log("new message: ", data);
 			})
 		}
 	},
@@ -66,10 +77,12 @@ export const partyActions = {
 		}
 	},
 
-	sendMessageToParty: ( message, userName, partyId ) => ({
-		type: partyActions.WS_TO_SERVER_SEND_MESSAGE_TO_PARTY,
-		payload: { message, userName, partyId }
-	}),
+	sendMessageToParty: ( message, partyId ) => {
+		return dispatch => {
+			console.log("partyid: ", partyId);
+			messageApi.send(partyId, message)
+		}
+	},
 
 	getRoomInfo: (partyId) => {
 

@@ -74,7 +74,8 @@ export default class VideoPlayerControls extends Component {
 						 onClick={ ( event ) => {
 							 emitNewPlayerStateToServer ( {
 								 status: 'seeking',
-								 media_time: videoUtils.getAmountOfSecondsAtXPos ( event, videoDuration )
+								 media_time: videoUtils.getAmountOfSecondsAtXPos ( event, videoDuration ),
+								//  videoStatus: videoIsPlaying ? 'pausing' : 'playing',
 							 }, partyId )
 						 } }>
 						<div className="background-bar"></div>
