@@ -9,9 +9,13 @@ export const WEBSOCKET_URL = '/'
 //-------------------------------------
 export const YOUTUBE_API_KEY = 'AIzaSyC9gNIsNUmKaIQ1KcOFGwZiX6Uvv530U34'
 
+const host = "localhost"
+
 export const YOUTUBE_API_BASE_URL = 'https://www.googleapis.com/youtube/v3'
 export const YOUTUBE_SEARCH_URL = `${YOUTUBE_API_BASE_URL}/search`
-export const BASE_URL = 'http://localhost:8000/api/'
+export const BASE_URL = `http://${host}:8000/api/`
+export const PUSHER_URL = `http://${host}:8000/`
+
 
 //=====================================
 //  VIDEO PLAYER

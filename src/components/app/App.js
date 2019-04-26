@@ -2,10 +2,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { ToastContainer, toast } from 'react-toastify';
 
 // CSS
 import './App.css'
 import 'font-awesome/css/font-awesome.min.css'
+import 'react-toastify/dist/ReactToastify.css';
 
 // Components
 import AppHeader from '../appHeader/AppHeader'
@@ -30,6 +32,10 @@ class App extends Component {
 	}
 
 	componentWillUpdate ( nextProps ) {
+		const {message, error} = nextProps.app;
+		if (message !== this.props.app.message || error !== this.props.app.error) {
+			this.notifyA(message, error)
+		}
 		// Check if the current path has been changed, if so -> navigate to new path
 		// if ( nextProps.app.currentPath !== this.props.router.location.pathname) {
 		// 	// console.log("nextProps.app.currentPath: ", nextProps.app.currentPath)
@@ -43,10 +49,27 @@ class App extends Component {
 		// }
 	}
 
+	notifyA = (msg, type) => {
+		
+
+		if(!type) {
+			toast.success(msg, {
+				containerId: 'A',
+				position: toast.POSITION.TOP_CENTER,
+				autoClose: false
+			})
+		} else {
+			toast.error(msg, {
+				containerId: 'A',
+				position: toast.POSITION.TOP_CENTER,
+				autoClose: false
+			})
+		}
+	}
 	render () {
 		return (
 			<div className="app grid">
-
+				<ToastContainer containerId={'A'}/>
 				<AppHeader
 					search={this.props.search}
 					user={this.props.user}

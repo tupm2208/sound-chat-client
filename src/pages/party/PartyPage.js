@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { ToastContainer, toast } from 'react-toastify';
 
 // CSS
 import './PartyPage.css'
@@ -75,7 +76,7 @@ class PartyPage extends Component {
 			this.props.connectToParty ( this.props.userName, this.partyId )
 		}
 	}
-
+	
 	/**
 	 * Render the party page
 	 * @param props

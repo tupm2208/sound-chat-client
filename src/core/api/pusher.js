@@ -1,9 +1,10 @@
 import Pusher from 'pusher-js';
 import { persistUtils } from '../utils/persist'
+import {PUSHER_URL} from '../constants'
 
 const soket = new Pusher('8ca50ca8ff937987bdce', {
     cluster: 'ap1',
-    authEndpoint: 'http://localhost:8000/pusher/auth',
+    authEndpoint: `${PUSHER_URL}pusher/auth`,
     auth: {
         headers: {
             'Authorization': `Bearer ${persistUtils.loadProperty('access_token', '')}`

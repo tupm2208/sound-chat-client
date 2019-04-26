@@ -164,6 +164,13 @@ export default class VideoPlayer extends Component {
 							this.constructUserPlayerState ( 'buffering', videoPlayer )
 						)
 					}}
+					onEnded={() => {
+						console.log("end video: ", videoProgress);
+						emitNewPlayerStateToServer ( {
+							status: 'finished',
+							media_time: videoProgress
+						}, partyId )
+					}}
 					onProgress={ setPlayerProgress }
 					config={ videoPlayerConfig }
 					style={ { position: 'absolute' } }
