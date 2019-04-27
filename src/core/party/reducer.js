@@ -24,6 +24,9 @@ export const partyReducer = ( state = initialState, action ) => {
 		case partyActions.GET_VIDEO_SUCCESSFUL:
 			return state.merge(action.payload)
 
+		case partyActions.NEW_INCOME_MESSAGE:
+			return state.set("messagesInParty", state.messagesInParty.concat(action.payload))
+
 		default:
 			return state
 	}

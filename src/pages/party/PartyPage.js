@@ -98,7 +98,8 @@ class PartyPage extends Component {
 			setPlayerIsLoadedState,
 			handleMaximizeBtnPressed,
 			videoProgress,
-			userName
+			userName,
+			userId
 		} = props
 		const partyUrl = window.location.href.split ( '?' )[ 0 ]
 
@@ -136,6 +137,7 @@ class PartyPage extends Component {
 							onMessageSend={this.props.sendMessageToParty}
 							partyId={this.partyId}
 							userName={userName}
+							userId={userId}
 							messagesInParty={this.props.messagesInParty}
 						/>
 
@@ -179,7 +181,8 @@ class PartyPage extends Component {
 const mapStateToProps = ( state ) => {
 	return {
 		selectedVideo: state.party.selectedVideo,
-		userName: state.user.userName,
+		userName: state.user.name,
+		userId: state.user.id,
 		partyId: state.party.partyId,
 		partyState: state.party.partyState,
 		usersInParty: state.party.usersInParty,

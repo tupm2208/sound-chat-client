@@ -15,6 +15,7 @@ export const partyActions = {
 	GET_ROOM_SUCCESSFUL: 'GET_ROOM_SUCCESSFUL',
 	GET_VIDEO_SUCCESSFUL: 'GET_VIDEO_SUCCESSFUL',
 	SET_VIDEO_PLAYER_STATE: 'SET_VIDEO_PLAYER_STATE',
+	NEW_INCOME_MESSAGE: 'NEW_INCOME_MESSAGE',
 
 	createParty: (videoDetails, videoSource) => {
 		return {
@@ -38,6 +39,10 @@ export const partyActions = {
 
 			channel.bind('new_message', data => {
 				console.log("new message: ", data);
+				dispatch({
+					type: partyActions.NEW_INCOME_MESSAGE,
+					payload: data
+				})
 			})
 
 			channel.bind('proceed', (data) => {

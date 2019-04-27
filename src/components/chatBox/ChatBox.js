@@ -23,23 +23,27 @@ export default class ChatBox extends Component {
 	}
 
 	renderMessages = ( messages ) => {
-		const { userName } = this.props
+		const { userName, userId } = this.props
 
-		// console.log("this.props: ", this.props)
+		console.log("this.props: ", this.props)
 
 		return (
 			<div className="messages-wrapper">
 
 				{messages.map ( ( message, index ) => {
+					const cpMessage = JSON.parse(JSON.stringify(message))
+					if(!message.name && !message.username && message.user) {
+						cpMessage.username = cpMessage.user.name;
+					}
 					const cssClasses = classNames ( 'message', {
-						'self': userName === message.userName
+						'self': userId === message.user_id
 					} )
 
 					return (
 						<div className="message-wrapper" key={index}>
 							<div className={cssClasses}>
-								<span className="username">{message.userName}: </span>
-								<span className="body">{message.message}</span>
+								<span className="username">{cpMessage.username}: </span>
+								<span className="body">{message.content? message.content: message.message}</span>
 							</div>
 						</div>
 					)
