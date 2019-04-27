@@ -16,7 +16,7 @@ export default class UserList extends Component {
 		const usersInList = users.map ( ( user, index ) => {
 			return (
 				<div className="user" key={index}>
-					<span className="user-name">{user.userName}</span>
+					<span className="user-name">{user.user.name}- {user.user.email}</span>
 				</div>
 			)
 		} )

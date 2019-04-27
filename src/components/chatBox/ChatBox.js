@@ -23,9 +23,8 @@ export default class ChatBox extends Component {
 	}
 
 	renderMessages = ( messages ) => {
-		const { userName, userId } = this.props
+		const { userId } = this.props
 
-		console.log("this.props: ", this.props)
 
 		return (
 			<div className="messages-wrapper">
@@ -64,8 +63,6 @@ export default class ChatBox extends Component {
 
 	render () {
 		const { messagesInParty } = this.props
-
-		console.log("message in party: ", messagesInParty)
 
 		return (
 			<div className="chat-box">
