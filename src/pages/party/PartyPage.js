@@ -133,13 +133,26 @@ class PartyPage extends Component {
 							<UserList users={usersInParty}/>
 						</div>
 
-						<ChatBox
-							onMessageSend={this.props.sendMessageToParty}
-							partyId={this.partyId}
-							userName={userName}
-							userId={userId}
-							messagesInParty={this.props.messagesInParty}
-						/>
+						<div className="content-flex-horizontal">
+							<div className="small-5">
+								<ChatBox
+									onMessageSend={this.props.sendMessageToParty}
+									partyId={this.partyId}
+									userName={userName}
+									userId={userId}
+									messagesInParty={this.props.messagesInParty}
+								/>
+							</div>
+							<div className="small-5">
+								<ChatBox
+									onMessageSend={this.props.sendMessageToParty}
+									partyId={this.partyId}
+									userName={userName}
+									userId={userId}
+									messagesInParty={this.props.messagesInParty}
+								/>
+							</div>
+						</div>
 
 					</div>
 				</div>

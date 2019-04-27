@@ -1,6 +1,6 @@
 // Utils & libs
 
-import { baseApi } from '../api/index'
+import { baseApi, pusherApi } from '../api/index'
 import { ssStorage } from '../utils/sessionStorage'
 
 export const loginAction = {
@@ -26,7 +26,7 @@ export const loginAction = {
 				const {data, message, access_token} = res;
 				ssStorage.set('user', data);
 				ssStorage.set('access_token', access_token);
-
+				pusherApi.changeAccessToken(access_token);
 				dispatch (loginAction.loginSuccess ({message, status: true}))
 				// dispatch ({
 				// 	type: 'NAVIGATE_TO_PATH',
