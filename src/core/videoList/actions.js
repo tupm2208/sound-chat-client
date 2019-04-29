@@ -26,12 +26,13 @@ export const videoListActions = {
 	 */
 	handleVideoSelection: (userId, videoId, router) => {
 		return function ( dispatch ) {
-			
+			dispatch({type: "START_LOADING"})
 			roomApi.create(userId).then( res => {
 				console.log("create room success: ", res)
 
 				mediaApi.create(res.data.id, `https://www.youtube.com/watch?v=${videoId}`).then( mediaRes => {
-					console.log("media created: ", mediaRes);
+					
+					dispatch({type: "STOP_LOADING"})
 					router.push(`/party/${res.data.id}`);
 				})
 			})

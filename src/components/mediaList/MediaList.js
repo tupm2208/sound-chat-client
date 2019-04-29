@@ -2,47 +2,60 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
+// import img from '../../assets/images/thumb-up.png'
 
 // CSS
 import './MediaList.css'
 
 export default class MediaList extends Component {
 	static propTypes = {
-		// onMessageSend: PropTypes.func.isRequired,
+		// onMediaSend: PropTypes.func.isRequired,
 		// partyId: PropTypes.string.isRequired,
 		// userName: PropTypes.string,
-		// messagesInParty: PropTypes.array
+		// medias: PropTypes.array
 	}
 
 	componentDidMount () {
-		this.messageBox.scrollTop = this.messageBox.scrollHeight
+		this.mediaBox.scrollTop = this.mediaBox.scrollHeight
 	}
 
 	componentDidUpdate () {
-		this.messageBox.scrollTop = this.messageBox.scrollHeight
+		this.mediaBox.scrollTop = this.mediaBox.scrollHeight
 	}
 
-	renderMessages = ( messages ) => {
-		const { userId } = this.props
+	renderMedias = ( medias ) => {
+		const { userId, upvote, downvote, partyId } = this.props
 
-
+		console.log("media: ", medias)
+		const sortedMedias = JSON.parse(JSON.stringify(medias))
+		sortedMedias.sort((a,b) => {
+			return b.total_vote - a.total_vote;
+		})
+		console.log("sortedMedias: ", sortedMedias)
 		return (
-			<div className="messages-wrapper">
-
-				{messages.map ( ( message, index ) => {
-					const cpMessage = JSON.parse(JSON.stringify(message))
-					if(!message.name && !message.username && message.user) {
-						cpMessage.username = cpMessage.user.name;
-					}
-					const cssClasses = classNames ( 'message', {
-						'self': userId === message.user_id
+			<div className="medias-wrapper">
+				
+				{sortedMedias.map ( ( media, index ) => {
+					
+					const cssClasses = classNames ( 'item', {
+						'self': userId === media.user_id
 					} )
 
 					return (
-						<div className="message-wrapper" key={index}>
+						<div className="media-wrapper" key={index}>
 							<div className={cssClasses}>
-								<span className="username">{cpMessage.username}: </span>
-								<span className="body">{message.content? message.content: message.message}</span>
+								<img className="imgDefault" alt="" src={media.data.thumbnails.default.url}></img>
+								<span className="title">{media.data.title} </span>
+								{/* <span className="vote">{media.content? media.content: media.media}</span> */}
+								{!media.is_voted? 
+								(<button className="vote" onClick={() => {upvote(media, partyId)}}>
+									<div>{media.total_vote} <img alt="" width={15} src="http://www.clker.com/cliparts/R/U/Y/u/I/M/thumbs-up-icon-blue-hi.png"></img></div>
+									<div>vote</div>
+								</button>)
+								: (<button className="unvote" onClick={() => {downvote(media, partyId)}}>
+										<div>{media.total_vote} <img alt="" width={15} src="http://www.clker.com/cliparts/R/U/Y/u/I/M/thumbs-up-icon-blue-hi.png"></img></div>
+										<div>unvote</div>
+								</button>)}
 							</div>
 						</div>
 					)
@@ -52,31 +65,31 @@ export default class MediaList extends Component {
 		)
 	}
 
-	submitChatMessage = ( event ) => {
-		const { onMessageSend, partyId } = this.props
+	submitChatMedia = ( event ) => {
+		const { addMediaLink, partyId } = this.props
 
 		event.preventDefault ()
-		const inputValue = this.messageInput.value.trim ()
-		onMessageSend ( inputValue, partyId )
-		this.messageInput.value = ''
+		const inputValue = this.mediaInput.value.trim ()
+		addMediaLink ( inputValue, partyId )
+		this.mediaInput.value = ''
 	}
 
 	render () {
-		const { messagesInParty } = this.props
+		const { medias } = this.props
 
 		return (
-			<div className="chat-box">
+			<div className="media-box">
 
-				<div className="message-box" ref={e => this.messageBox = e}>
-					{this.renderMessages ( messagesInParty )}
+				<div className="media-box" ref={e => this.mediaBox = e}>
+					{this.renderMedias ( medias )}
 				</div>
 
-				<form className="input-box" action="#" onSubmit={this.submitChatMessage}>
+				<form className="input-box" action="#" onSubmit={this.submitChatMedia}>
 					<input
 						type="text"
-						ref={e => this.messageInput = e}
+						ref={e => this.mediaInput = e}
 						className="input"
-						placeholder="Say hello!"/>
+						placeholder="Enter youtube link!"/>
 
 					<input
 						className="submit"

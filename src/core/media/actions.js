@@ -5,7 +5,7 @@
 //					the middleware 'redux-socket.io' by prefixing these specific actions
 // 					with the string 'WS_TO_SERVER_'.
 //-------------------------------------
-import { roomApi } from '../api/index'
+import { roomApi, mediaApi } from '../api/index'
 
 export const mediaActions = {
 
@@ -15,12 +15,38 @@ export const mediaActions = {
 	emitNewPlayerStateForPartyToServer: ( newPlayerState, partyId ) => {
 		return (dispatch) => {
 		
+			if(newPlayerState.status === "finished") {
+				dispatch({
+					type: "END_VIDEO"
+				})
+			}
 			roomApi.changeMediaState(partyId,newPlayerState);
-			// dispatch({
-			// 	type: 'SET_USER_PLAYER_STATE',
-			// 	payload: 'buffering'
-			// });
 		}
 	},
-
+	upvote: (media, partyId) => {
+		return dispatch => {
+			dispatch({type: "START_LOADING"})
+			mediaApi.upvote(media.id, partyId).then( res => {
+				media.is_voted = true;
+				dispatch({type: "STOP_LOADING"})
+				dispatch({
+					type: "VOTE_MEDIA",
+					payload: media
+				})
+			})
+		}
+	},
+	downvote: (media) => {
+		return dispatch => {
+			dispatch({type: "START_LOADING"})
+			mediaApi.downvote(media.id).then( res => {
+				media.is_voted = false;
+				dispatch({type: "STOP_LOADING"})
+				dispatch({
+					type: "VOTE_MEDIA",
+					payload: media
+				})
+			})
+		}
+	},
 }

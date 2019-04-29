@@ -5,7 +5,7 @@
 //					the middleware 'redux-socket.io' by prefixing these specific actions
 // 					with the string 'WS_TO_SERVER_'.
 //-------------------------------------
-import { roomApi, youtubeApi, pusherApi, messageApi } from '../api/index'
+import { roomApi, youtubeApi, pusherApi, messageApi, mediaApi } from '../api/index'
 
 export const partyActions = {
 
@@ -16,6 +16,10 @@ export const partyActions = {
 	GET_VIDEO_SUCCESSFUL: 'GET_VIDEO_SUCCESSFUL',
 	SET_VIDEO_PLAYER_STATE: 'SET_VIDEO_PLAYER_STATE',
 	NEW_INCOME_MESSAGE: 'NEW_INCOME_MESSAGE',
+	END_VIDEO: 'END_VIDEO',
+	MEDIA_EVENT_DATA: 'MEDIA_EVENT_DATA',
+	VOTE_MEDIA: 'VOTE_MEDIA',
+	DELETE_MEDIA: 'DELETE_MEDIA',
 
 	createParty: (videoDetails, videoSource) => {
 		return {
@@ -49,6 +53,10 @@ export const partyActions = {
 				console.log("proceed: ", data);
 				if(data.url) {
 					partyActions.getPlayingVideo(data.url, dispatch, data);
+					dispatch({
+						type: partyActions.DELETE_MEDIA,
+						payload: data
+					})
 				} else {
 					dispatch({
 						type: 'TOASTER',
@@ -58,6 +66,39 @@ export const partyActions = {
 						}
 					})
 				}
+			})
+
+			channel.bind('new_media', (data) => {
+				console.log("new media created: ", data)
+				const id = getYoutubeId(data.url);
+				youtubeApi.fetchYoutubeIdResults(id).then( res => {
+					if(res.items.length) {
+						data.data = res.items[0].snippet
+					}
+
+					dispatch({
+						type: partyActions.MEDIA_EVENT_DATA,
+						payload: {
+							media: data
+						}
+					})
+				})
+			})
+
+			channel.bind('up_vote', data => {
+				console.log("upvote: ", data);
+				dispatch({
+					type: partyActions.VOTE_MEDIA,
+					payload: data
+				})
+			})
+
+			channel.bind('down_vote', data => {
+				console.log("down_vote: ", data);
+				dispatch({
+					type: partyActions.VOTE_MEDIA,
+					payload: data
+				})
 			})
 		}
 	},
@@ -87,7 +128,7 @@ export const partyActions = {
 	},
 
 	getPlayingVideo: (url, dispatch, data) => {
-		const youtubeId = url.split('v=')[1];
+		const youtubeId = getYoutubeId(url);
 		console.log("res media: ", youtubeId);
 		youtubeApi.fetchYoutubeIdResults(youtubeId).then(yRes => {
 			console.log("yres: ", yRes);
@@ -114,14 +155,27 @@ export const partyActions = {
 
 	sendMessageToParty: ( message, partyId ) => {
 		return dispatch => {
+			dispatch({type: "START_LOADING"})
 			console.log("partyid: ", partyId);
-			messageApi.send(partyId, message)
+			messageApi.send(partyId, message).then(res => {
+				dispatch({type: "STOP_LOADING"})
+			})
 		}
 	},
 
 	getRoomInfo: (partyId) => {
 
 		return dispatch => {
+			dispatch({type: "START_LOADING"})
+			dispatch({
+				type: partyActions.GET_VIDEO_SUCCESSFUL,
+				payload: {
+					usersInParty: [],
+					messagesInParty: [],
+					fingerprint: [],
+					medias: []
+				}
+			})
 
 			roomApi.getRoomInfo(partyId).then( res => {
 				console.log("room info: ", res)
@@ -130,10 +184,60 @@ export const partyActions = {
 					type: partyActions.GET_VIDEO_SUCCESSFUL,
 					payload: {
 						usersInParty: res.data.participants,
-						messagesInParty: res.data.messages
+						messagesInParty: res.data.messages,
+						fingerprint: res.data.fingerprint
 					}
 				})
+				dispatch({type: "STOP_LOADING"})
+				partyActions.getVideoInfo(res.data.media, dispatch)
 			})
 		}
+	},
+
+	addMediaLink: (url, partyId) => {
+
+		return dispatch => {
+			dispatch({type: "START_LOADING"})
+			mediaApi.create(partyId, url).then(res => {
+				dispatch({type: "STOP_LOADING"})
+			})
+		}
+	},
+
+	getVideoInfo: (medias = [], dispatch) => {
+
+		if(!medias.length) {
+			dispatch({
+				type: partyActions.GET_VIDEO_SUCCESSFUL,
+				payload: {
+					medias: []
+				}
+			})
+
+			return;
+		}
+		const infoMedias = [];
+		medias.forEach( (media, index) => {
+			const videoId = getYoutubeId(media.url);
+			youtubeApi.fetchYoutubeIdResults(videoId).then(data => {
+				if(data.items.length) {
+					media.data = data.items[0].snippet
+					infoMedias.push(media)
+
+					dispatch({
+						type: partyActions.GET_VIDEO_SUCCESSFUL,
+						payload: {
+							medias: infoMedias.concat()
+						}
+					})
+				}
+			})
+		})
+
+		
 	}
+}
+
+function getYoutubeId(url) {
+	return url.split('v=')[1].split("&")[0]
 }

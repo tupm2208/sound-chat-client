@@ -94,6 +94,8 @@ export const httpRequest = {
             method: "DELETE"
         }
 
+        delete options.headers["Content-Type"];
+
         return fetch ( `${BASE_URL}${uri}`, options )
 			.then ( restUtils.handleRestResponse )
 			.then ( ( response ) => response )

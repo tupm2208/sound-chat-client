@@ -10,6 +10,7 @@ import './PartyPage.css'
 // Components
 import VideoPlayer from '../../components/videoPlayer/VideoPlayer'
 import ChatBox from '../../components/chatBox/ChatBox'
+import MediaList from '../../components/mediaList/MediaList'
 import ShareablePartyUrl from '../../components/shareablePartyUrl/ShareablePartyUrl'
 import UserList from '../../components/userList/UserList'
 
@@ -65,10 +66,8 @@ class PartyPage extends Component {
 		// If the user now chose a userName -> connect to the selected party
 		const {partyVideoPlayerState, userVideoPlayerState, emitNewPlayerStateForPartyToServer} = prevProps;
 
-		console.log("sst: ", this.props.userVideoPlayerState.status, "-", userVideoPlayerState.status)
 		if(this.props.userVideoPlayerState.status && partyVideoPlayerState.status === 'seeking' && userVideoPlayerState.status !== 'buffering') {
 			const {media_time} = partyVideoPlayerState;
-			console.log("trigger");
 			emitNewPlayerStateForPartyToServer({status: "ready", media_time}, this.partyId);
 		}
 		
@@ -99,9 +98,14 @@ class PartyPage extends Component {
 			handleMaximizeBtnPressed,
 			videoProgress,
 			userName,
-			userId
+			userId,
+			addMediaLink,
+			fingerprint,
+			medias,
+			upvote,
+			downvote
 		} = props
-		const partyUrl = window.location.href.split ( '?' )[ 0 ]
+		const partyUrl = window.location.href.split ( 'party' )[ 0 ] + "fingerprint/" + fingerprint;
 
 		return (
 			<div className="party-page">
@@ -135,12 +139,14 @@ class PartyPage extends Component {
 
 						<div className="content-flex-horizontal">
 							<div className="small-5">
-								<ChatBox
-									onMessageSend={this.props.sendMessageToParty}
+								<MediaList
+									addMediaLink={addMediaLink}
 									partyId={this.partyId}
 									userName={userName}
 									userId={userId}
-									messagesInParty={this.props.messagesInParty}
+									medias={medias}
+									upvote={upvote}
+									downvote={downvote}
 								/>
 							</div>
 							<div className="small-5">
@@ -206,6 +212,8 @@ const mapStateToProps = ( state ) => {
 		videoProgress: state.videoPlayer.videoProgress,
 		videoPlayerIsMaximized: state.videoPlayer.videoPlayerIsMaximized,
 		videoPlayerIsLoaded: state.videoPlayer.videoPlayerIsLoaded,
+		fingerprint: state.party.fingerprint,
+		medias: state.party.medias
 	}
 }
 
@@ -220,7 +228,10 @@ const mapDispatchToProps = {
 	setPlayerProgress: videoPlayerActions.setPlayerProgress,
 	getParty: partyActions.getParty,
 	subscribeRoom: partyActions.subscribeRoom,
-	getRoomInfo: partyActions.getRoomInfo
+	getRoomInfo: partyActions.getRoomInfo,
+	addMediaLink: partyActions.addMediaLink,
+	upvote: mediaActions.upvote,
+	downvote: mediaActions.downvote
 }
 
 PartyPage = connect (
