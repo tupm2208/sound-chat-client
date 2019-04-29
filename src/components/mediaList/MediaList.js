@@ -41,6 +41,10 @@ export default class MediaList extends Component {
 						'self': userId === media.user_id
 					} )
 
+					if(media.is_voted === undefined) {
+						media.is_voted = userId === media.creator_id;
+					}
+
 					return (
 						<div className="media-wrapper" key={index}>
 							<div className={cssClasses}>
