@@ -34,6 +34,8 @@ export const videoListActions = {
 					
 					dispatch({type: "STOP_LOADING"})
 					router.push(`/party/${res.data.id}`);
+				}, error => {
+					dispatch({type: "STOP_LOADING"})
 				})
 			})
 		}

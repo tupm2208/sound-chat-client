@@ -33,6 +33,8 @@ export const mediaActions = {
 					type: "VOTE_MEDIA",
 					payload: media
 				})
+			}, error => {
+				dispatch({type: "STOP_LOADING"})
 			})
 		}
 	},
@@ -46,6 +48,8 @@ export const mediaActions = {
 					type: "VOTE_MEDIA",
 					payload: media
 				})
+			}, error => {
+				dispatch({type: "STOP_LOADING"})
 			})
 		}
 	},

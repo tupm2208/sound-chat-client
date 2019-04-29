@@ -159,6 +159,8 @@ export const partyActions = {
 			console.log("partyid: ", partyId);
 			messageApi.send(partyId, message).then(res => {
 				dispatch({type: "STOP_LOADING"})
+			}, error => {
+				dispatch({type: "STOP_LOADING"})
 			})
 		}
 	},
@@ -190,6 +192,8 @@ export const partyActions = {
 				})
 				dispatch({type: "STOP_LOADING"})
 				partyActions.getVideoInfo(res.data.media, dispatch)
+			}, error => {
+				dispatch({type: "STOP_LOADING"})
 			})
 		}
 	},
@@ -199,6 +203,8 @@ export const partyActions = {
 		return dispatch => {
 			dispatch({type: "START_LOADING"})
 			mediaApi.create(partyId, url).then(res => {
+				dispatch({type: "STOP_LOADING"})
+			}, error => {
 				dispatch({type: "STOP_LOADING"})
 			})
 		}
