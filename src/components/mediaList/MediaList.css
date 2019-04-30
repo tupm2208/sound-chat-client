@@ -45,7 +45,7 @@
 }
 
 .item .title {
-    max-width: 260px;
+    width: 260px;
 }
 
 .vote {
@@ -65,7 +65,7 @@
 
 .unvote {
     float: right;
-    background-color: rgb(185, 49, 24);
+    background-color: rgba(188, 32, 32, 0.7);
     width: 80px;
     height: 100%;
     border: 0;
@@ -121,6 +121,12 @@
 .media-box .input-box .submit:hover{
     cursor: pointer;
     background: #434446;
+}
+
+.vote-count {
+    font-weight: 500;
+    font-size: 20px;
+    padding: 5px;
 }
 
 /*==================================*/
