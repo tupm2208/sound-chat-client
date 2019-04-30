@@ -51,7 +51,7 @@ class BrowsePage extends Component {
 	}
 
 	render () {
-		const { user, isFetchingVideos, youtubeVideos, handleVideoSelection } = this.props
+		const { user, isFetchingVideos, youtubeVideos } = this.props
 
 
 		return (

@@ -12,13 +12,14 @@ export const searchActions = {
 	/**
 	 * Navigate to search results upon search submission & close the search input bar
 	 */
-	handleSearch: ( query ) => {
+	handleSearch: ( query, router ) => {
 		return async function ( dispatch ) {
 			// Close the searchField
 			dispatch ( searchActions.toggleSearchField() )
 
 			// Navigate to the search results
-			dispatch ( appActions.navigateToPath ( `/search/${query}` ) )
+			router.push(`/search/${query}`)
+			// dispatch ( appActions.navigateToPath ( `/search/${query}` ) )
 		}
 	}
 }

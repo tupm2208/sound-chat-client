@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { persistUtils } from '../../core/utils/persist'
 
 // CSS
 import './SearchPage.css'
@@ -40,9 +41,20 @@ class SearchPage extends Component {
 		}
 	}
 
+	handleVideoSelection(videoDetail, videoType) {
+		const { handleVideoSelection, router } = this.props
+		const user = persistUtils.loadProperty('user', {});
+		if (!user.id) {
+			//show popup and redirect to loginpage
+			router.push('/login');
+		} else {
+			console.log("video: ", videoDetail);
+			handleVideoSelection(user.id, videoDetail.id, router)
+		}
+	}
+
 	render () {
 		const currentQuery = this.props.params.query
-		const { handleVideoSelection } = this.props
 
 		return (
 			<div className="browse-page">
@@ -55,7 +67,7 @@ class SearchPage extends Component {
 					<VideoList
 						showLoadingAnimation={this.props.isFetchingVideos}
 						youtubeVideos={this.props.youtubeVideos}
-						handleVideoSelection={handleVideoSelection}
+						handleVideoSelection={this.handleVideoSelection.bind(this)}
 					/>
 				</div>
 			</div>

@@ -41,6 +41,10 @@ class App extends Component {
 		});
 	}
 
+	handleSearch(inputValue) {
+		this.props.handleSearch(inputValue, this.props.router)
+	}
+
 	notifyA = (msg, type) => {
 		
 
@@ -66,7 +70,7 @@ class App extends Component {
 					search={this.props.search}
 					user={this.props.user}
 					toggleSearch={this.props.toggleSearch}
-					handleSearch={this.props.handleSearch}
+					handleSearch={this.handleSearch.bind(this)}
 					router={this.props.router}
 				/>
 

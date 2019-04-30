@@ -33,11 +33,11 @@ export default class AppHeader extends Component {
 	 * @returns {*}
 	 */
 	renderSearchButton = ( bool ) => {
-		return bool ? (
+		return (
 				<li>
 					<span className="btn btn-icon fa fa-search" onClick={this.props.toggleSearch}/>
 				</li>
-			) : null
+			)
 	}
 
 	render () {
