@@ -29,15 +29,9 @@ class RegisterPage extends Component {
 	register(e) {
 		e.preventDefault()
 		const {email, password, name, rePassword} = this.state;
-		const {register, router, dispatch} = this.props;
+		const {register, router, notifyError} = this.props;
 		if(password !== rePassword) {
-			dispatch({
-				type: 'TOASTER',
-				payload: {
-					message: "the password must be match the re-enter password",
-					error: 1
-				}
-			})
+			notifyError("the password must be match the re-enter password")
 		} else {
 			
 			register(email, password, name, router);
@@ -66,7 +60,7 @@ class RegisterPage extends Component {
 
 						<form onSubmit={this.register} onKeyDown={this.handleKeyDown.bind(this)}>
 							<div className="err-msg">
-							{message} - {status}
+							{message}
 							</div>
 							<div className="field-group">
 								<span className="fa fa-user" aria-hidden="true"></span>
@@ -124,7 +118,7 @@ const mapStateToProps = ( state ) => {
 
 const mapDispatchToProps = {
 	register: registerAction.register,
-	dispatch: registerAction.dispatch
+	notifyError: registerAction.notifyError
 }
 
 RegisterPage = connect (

@@ -20,7 +20,13 @@ export const registerAction = {
             dispatch({type: "START_LOADING"})
             await baseRegisterApi.register(email, password, name).then( res => {
                 const {message} = res; 
-                
+                dispatch({
+                    type: 'TOASTER',
+                    payload: {
+                        error: 0,
+                        message: "account created"
+                    }
+                })
                 dispatch (registerAction.registerSuccess ({message, status: true}))
 
                 const redirect = router.location.query.redirect
@@ -35,10 +41,15 @@ export const registerAction = {
         }
     },
 
-    dispatch: (params = {}) => {
-        dispatch => {
+    notifyError: (message) => {
+        return dispatch => {
 
-            dispatch(params)
+            dispatch({
+                type: 'TOASTER',
+                payload: {
+                    message, error: 1
+                }
+            })
         }
     }, 
     handleErrorData: (errorData = {}, dispatch) => {
