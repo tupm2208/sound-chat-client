@@ -46,22 +46,23 @@ class App extends Component {
 	}
 
 	notifyA = (msg, type) => {
-		
-
 		if(!type) {
 			toast.success(msg, {
 				containerId: 'A',
 				position: toast.POSITION.BOTTOM_LEFT,
-				autoClose: false
+				autoClose: 3000,
+				hideProgressBar: false	
 			})
 		} else {
 			toast.error(msg, {
 				containerId: 'A',
 				position: toast.POSITION.BOTTOM_LEFT,
-				autoClose: false
+				autoClose: 3000,
+				hideProgressBar: false
 			})
 		}
 	}
+	
 	render () {
 		return (
 			<div className="app grid">
