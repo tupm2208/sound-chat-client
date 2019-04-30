@@ -26,12 +26,10 @@ export default class MediaList extends Component {
 	renderMedias = ( medias ) => {
 		const { userId, upvote, downvote, partyId } = this.props
 
-		console.log("media: ", medias)
 		const sortedMedias = JSON.parse(JSON.stringify(medias))
 		sortedMedias.sort((a,b) => {
 			return b.total_vote - a.total_vote;
 		})
-		console.log("sortedMedias: ", sortedMedias)
 		return (
 			<div className="medias-wrapper">
 				

@@ -66,9 +66,18 @@ export const partyReducer = ( state = initialState, action ) => {
 
 		case partyActions.DELETE_MEDIA: 
 
-		return state.set("medias", state.medias.filter(element => {
-			return element.id !== action.payload.id
-		}))
+			return state.set("medias", state.medias.filter(element => {
+				return element.id !== action.payload.id
+			}))
+		
+		case partyActions.EXIT_PARTYCIPANT:
+			return state.set("usersInParty", state.usersInParty.filter(element => {
+				return element.user_id !== action.payload.user_id
+			}))
+
+		case partyActions.NEW_PARTYCIPANT:
+			const users = JSON.parse(JSON.stringify(state.usersInParty))
+			return state.set("usersInParty", users.push(action.payload))
 
 		case "URL_CHANGE": 
 

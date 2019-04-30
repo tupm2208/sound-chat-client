@@ -20,6 +20,8 @@ export const partyActions = {
 	MEDIA_EVENT_DATA: 'MEDIA_EVENT_DATA',
 	VOTE_MEDIA: 'VOTE_MEDIA',
 	DELETE_MEDIA: 'DELETE_MEDIA',
+	EXIT_PARTYCIPANT: 'EXIT_PARTYCIPANT',
+	NEW_PARTYCIPANT: 'NEW_PARTYCIPANT',
 
 	createParty: (videoDetails, videoSource) => {
 		return {
@@ -97,6 +99,26 @@ export const partyActions = {
 				console.log("down_vote: ", data);
 				dispatch({
 					type: partyActions.VOTE_MEDIA,
+					payload: data
+				})
+			})
+
+			channel.bind('new_participant', data => {
+				console.log("new_participant: ", data);
+				data.user = {
+					name: data.name,
+					id: data.id
+				}
+				dispatch({
+					type: partyActions.NEW_PARTYCIPANT,
+					payload: data
+				})
+			})
+
+			channel.bind('exit_participant', data => {
+				console.log("exit_participant: ", data);
+				dispatch({
+					type: partyActions.EXIT_PARTYCIPANT,
 					payload: data
 				})
 			})
