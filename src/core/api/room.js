@@ -6,7 +6,7 @@ export const roomApi = {
 	},
 
 	create: ( id ) => {
-        const params = {id}
+        const params = {id, name: "name"}
 
 		return httpRequest.post('rooms', params);
 	},

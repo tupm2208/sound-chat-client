@@ -78,7 +78,18 @@ export const partyReducer = ( state = initialState, action ) => {
 
 		case partyActions.NEW_PARTYCIPANT:
 			const users = JSON.parse(JSON.stringify(state.usersInParty))
-			return state.set("usersInParty", users.push(action.payload))
+			let isContained = false;
+
+			users.forEach(element => {
+				if(element.user_id === action.payload.user_id) {
+					isContained = true;
+				}
+			})
+
+			if(!isContained) {
+				users.push(action.payload)
+			}
+			return state.set("usersInParty", users)
 
 		case "URL_CHANGE": 
 

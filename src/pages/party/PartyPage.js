@@ -22,26 +22,24 @@ import { videoPlayerActions } from '../../core/videoPlayer'
 
 class PartyPage extends Component {
 	static propTypes = {
-		// selectedVideo: PropTypes.object.isRequired,
-		// userName: PropTypes.string,
-		// partyId: PropTypes.string,
-		// partyState: PropTypes.string.isRequired,
-		// usersInParty: PropTypes.array.isRequired,
-		// messagesInParty: PropTypes.array.isRequired,
-		// partyVideoPlayerState: PropTypes.object.isRequired,
-		// userVideoPlayerState: PropTypes.object.isRequired,
-		// videoPlayerIsMuted: PropTypes.bool.isRequired,
-		// videoProgress: PropTypes.number.isRequired,
-		// videoPlayerIsMaximized: PropTypes.bool.isRequired,
-		// videoPlayerIsLoaded: PropTypes.bool.isRequired,
-		// connectToParty: PropTypes.func.isRequired,
-		// sendMessageToParty: PropTypes.func.isRequired,
-		// emitNewPlayerStateForPartyToServer: PropTypes.func.isRequired,
-		// onPlayerStateChange: PropTypes.func.isRequired,
-		// setPlayerMutedState: PropTypes.func.isRequired,
-		// setPlayerIsLoadedState: PropTypes.func.isRequired,
-		// handleMaximizeBtnPressed: PropTypes.func.isRequired,
-		// setPlayerProgress: PropTypes.func.isRequired
+		selectedVideo: PropTypes.object.isRequired,
+		partyState: PropTypes.string.isRequired,
+		usersInParty: PropTypes.array.isRequired,
+		messagesInParty: PropTypes.array.isRequired,
+		partyVideoPlayerState: PropTypes.object.isRequired,
+		userVideoPlayerState: PropTypes.object.isRequired,
+		videoPlayerIsMuted: PropTypes.bool.isRequired,
+		videoProgress: PropTypes.number.isRequired,
+		videoPlayerIsMaximized: PropTypes.bool.isRequired,
+		videoPlayerIsLoaded: PropTypes.bool.isRequired,
+		connectToParty: PropTypes.func.isRequired,
+		sendMessageToParty: PropTypes.func.isRequired,
+		emitNewPlayerStateForPartyToServer: PropTypes.func.isRequired,
+		onPlayerStateChange: PropTypes.func.isRequired,
+		setPlayerMutedState: PropTypes.func.isRequired,
+		setPlayerIsLoadedState: PropTypes.func.isRequired,
+		handleMaximizeBtnPressed: PropTypes.func.isRequired,
+		setPlayerProgress: PropTypes.func.isRequired
 	}
 
 	constructor ( props ) {
@@ -61,6 +59,12 @@ class PartyPage extends Component {
 			connectToParty ( userName, this.partyId )
 		}
 	}
+
+	componentWillUnmount() {
+		const {unSubscribeRoom} = this.props;
+
+		unSubscribeRoom(this.partyId)
+	  }
 
 	componentDidUpdate ( prevProps, prevState ) {
 		// If the user now chose a userName -> connect to the selected party
@@ -231,7 +235,8 @@ const mapDispatchToProps = {
 	getRoomInfo: partyActions.getRoomInfo,
 	addMediaLink: partyActions.addMediaLink,
 	upvote: mediaActions.upvote,
-	downvote: mediaActions.downvote
+	downvote: mediaActions.downvote,
+	unSubscribeRoom: partyActions.unSubscribeRoom
 }
 
 PartyPage = connect (
