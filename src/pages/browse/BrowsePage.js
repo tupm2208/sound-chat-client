@@ -41,7 +41,7 @@ class BrowsePage extends Component {
 	componentDidMount () {
 		// Load an initial set of movies from Youtube into Redux store
 		this.props.loadYoutubeVideos ( initialVideoQuery.query, initialVideoQuery.videoType )
-		if (this.props.user) {
+		if (generalUtils.isLogin()) {
 			this.props.loadRoomList();
 		}
 
@@ -56,7 +56,6 @@ class BrowsePage extends Component {
 			//show popup and redirect to loginpage
 			router.push('/login');
 		} else {
-			console.log("video: ", videoDetail);
 			handleVideoSelection(user.id, videoDetail.id, router)
 		}
 	}
