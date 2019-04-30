@@ -30,6 +30,12 @@ export const partyActions = {
 		}
 	},
 
+	unSubscribeRoom: (id) => {
+		return dispatch => {
+			pusherApi.pusher.unsubscribe(`presence-room-${id}-`);
+		}
+	},
+
 
 	subscribeRoom: (id) => {
 		return dispatch => {

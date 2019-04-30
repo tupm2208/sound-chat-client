@@ -62,6 +62,12 @@ class PartyPage extends Component {
 		}
 	}
 
+	componentWillUnmount() {
+		const {unSubscribeRoom} = this.props;
+
+		unSubscribeRoom(this.partyId)
+	  }
+
 	componentDidUpdate ( prevProps, prevState ) {
 		// If the user now chose a userName -> connect to the selected party
 		const {partyVideoPlayerState, userVideoPlayerState, emitNewPlayerStateForPartyToServer} = prevProps;
@@ -231,7 +237,8 @@ const mapDispatchToProps = {
 	getRoomInfo: partyActions.getRoomInfo,
 	addMediaLink: partyActions.addMediaLink,
 	upvote: mediaActions.upvote,
-	downvote: mediaActions.downvote
+	downvote: mediaActions.downvote,
+	unSubscribeRoom: partyActions.unSubscribeRoom
 }
 
 PartyPage = connect (
