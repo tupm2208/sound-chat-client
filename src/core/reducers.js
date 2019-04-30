@@ -12,6 +12,7 @@ import { loginReducer } from './login'
 import { registerReducer } from './register'
 import { loadingReducer } from './loading'
 import { mediaReducer } from './media'
+import { roomListReducer } from './rooms'
 
 export default combineReducers ( {
 	app: appReducer,
@@ -23,5 +24,6 @@ export default combineReducers ( {
 	login: loginReducer,
 	register: registerReducer,
 	loading: loadingReducer,
-	currentMedia: mediaReducer
+	currentMedia: mediaReducer,
+	rooms: roomListReducer
 } )

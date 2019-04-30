@@ -69,7 +69,7 @@ export const partyActions = {
 					dispatch({
 						type: 'TOASTER',
 						payload: {
-							message: "no song is playing! please adding new url to play!",
+							message: "No song is playing! Please adding new url to play!",
 							error: 0
 						}
 					})
@@ -144,7 +144,7 @@ export const partyActions = {
 					dispatch({
 						type: 'TOASTER',
 						payload: {
-							message: "no song is playing! please adding new url to play!",
+							message: "No song is playing! Please adding new url to play!",
 							error: 0
 						}
 					})

@@ -51,12 +51,16 @@ export default class MediaList extends Component {
 								{/* <span className="vote">{media.content? media.content: media.media}</span> */}
 								{!media.is_voted? 
 								(<button className="vote" onClick={() => {upvote(media, partyId)}}>
-									<div>{media.total_vote} <img alt="" width={15} src="http://www.clker.com/cliparts/R/U/Y/u/I/M/thumbs-up-icon-blue-hi.png"></img></div>
-									<div>vote</div>
+									<div>
+										<span className="vote-count">{media.total_vote}</span> 
+										<img alt="" width={25} src="http://www.clker.com/cliparts/R/U/Y/u/I/M/thumbs-up-icon-blue-hi.png"></img>
+									</div>
 								</button>)
 								: (<button className="unvote" onClick={() => {downvote(media, partyId)}}>
-										<div>{media.total_vote} <img alt="" width={15} src="http://www.clker.com/cliparts/R/U/Y/u/I/M/thumbs-up-icon-blue-hi.png"></img></div>
-										<div>unvote</div>
+										<div> 
+											<span className="vote-count">{media.total_vote}</span> 
+											<img alt="" width={25} src="http://www.clker.com/cliparts/R/U/Y/u/I/M/thumbs-up-icon-blue-hi.png"></img>
+										</div>
 								</button>)}
 							</div>
 						</div>
