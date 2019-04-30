@@ -16,7 +16,7 @@ class RegisterPage extends Component {
 
 	constructor(props) {
 		super(props)
-		this.state = {email: "", password: "", name: ""}
+		this.state = {email: "", password: "", name: "", "buttonClicked": false}
 		this.handleChange = this.handleChange.bind(this);
 		this.register = this.register.bind(this);
 	}
@@ -24,12 +24,6 @@ class RegisterPage extends Component {
 	handleChange(event) {
 		const {name, value} = event.target;
 		this.setState({[name]: value});
-	}
-
-	handleKeyDown(e) {
-		if (e.key === 'Enter') {
-		  this.register(e);
-		}
 	}
 
 	register(e) {
@@ -52,7 +46,7 @@ class RegisterPage extends Component {
 					</div>
 					<div className="content-bottom">
 
-						<form onSubmit={this.register} onKeyDown={this.handleKeyDown.bind(this)}>
+						<form onSubmit={this.register} onClick={this.register.bind(this)}>
 							<div className="err-msg">
 							{message}
 							</div>
@@ -80,11 +74,10 @@ class RegisterPage extends Component {
 							<small><a style={{fontSize: "14px"}} >Already created account? </a></small>
 							
 							
-							<a style={{color: "navy"}} className="text-right">Login</a>
-							
-							<div className="wthree-field">
-								<button name="register" type="button" class="btn">Register</button>
-							</div>
+							<a style={{color: "navy"}} className="text-right">Login</a>	
+								<div className="wthree-field">
+									<button name="register" type="submit" className="btn btn-success btn-lg" onClick={this.register}>Register</button>
+								</div>
 						</form>
 					</div>
 				</div>
