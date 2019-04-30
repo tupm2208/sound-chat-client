@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { persistUtils } from '../../core/utils/persist'
+import { generalUtils } from '../../core/utils/general'
 
 // CSS
 import './BrowsePage.css'
@@ -30,6 +31,11 @@ class BrowsePage extends Component {
 		disconnectFromAllParties: PropTypes.func.isRequired,
 		loadYoutubeVideos: PropTypes.func.isRequired,
 		handleVideoSelection: PropTypes.func.isRequired,
+	}
+
+	constructor(props) {
+		super(props);
+		this.renderRoomList = this.renderRoomList.bind(this)
 	}
 
 	componentDidMount () {
@@ -66,10 +72,28 @@ class BrowsePage extends Component {
 		}
 	}
 
+	renderRoomList() {
+		const {isFetchingRooms, roomList } = this.props
+		return (
+			<div>
+				<PageHeader
+					titleLeader='Your conversations'
+				/>
+
+				<div className="g-row">
+					<RoomList 
+						showLoadingAnimation={isFetchingRooms}
+						roomList={roomList}
+						handleRoomSelection={this.handleRoomSelection.bind(this)}
+					/>
+				</div>
+			</div>
+		)
+	}
+
 	render () {
-		const { user, isFetchingVideos, youtubeVideos, roomList } = this.props
-
-
+		const { user, isFetchingVideos, youtubeVideos } = this.props
+		console.log(user);
 		return (
 			<div className="browse-page">
 				<PageHeader
@@ -93,19 +117,10 @@ class BrowsePage extends Component {
 						youtubeVideos={youtubeVideos}
 						handleVideoSelection={this.handleVideoSelection.bind(this)}
 					/>
+
+					{ generalUtils.isLogin() && this.renderRoomList() }
 				</div>
 
-				<PageHeader
-					titleLeader='Your conversations'
-				/>
-
-				<div className="g-row">
-					<RoomList 
-						showLoadingAnimation={isFetchingVideos}
-						roomList={roomList}
-						handleRoomSelection={this.handleRoomSelection.bind(this)}
-					/>
-				</div>
 			</div>
 		)
 	}
