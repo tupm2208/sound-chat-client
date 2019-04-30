@@ -8,7 +8,7 @@ export const roomApi = {
 	 * @returns {Promise.<TResult>}
 	 */
 	create: ( id ) => {
-        const params = {id}
+        const params = {id, name: "name"}
 
 		return httpRequest.post('rooms', params);
 	},

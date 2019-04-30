@@ -30,6 +30,12 @@ export const partyActions = {
 		}
 	},
 
+	unSubscribeRoom: (id) => {
+		return dispatch => {
+			pusherApi.pusher.unsubscribe(`presence-room-${id}-`);
+		}
+	},
+
 
 	subscribeRoom: (id) => {
 		return dispatch => {
@@ -107,7 +113,7 @@ export const partyActions = {
 				console.log("new_participant: ", data);
 				data.user = {
 					name: data.name,
-					id: data.id
+					id: data.user_id
 				}
 				dispatch({
 					type: partyActions.NEW_PARTYCIPANT,
