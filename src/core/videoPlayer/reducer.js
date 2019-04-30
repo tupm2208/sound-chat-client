@@ -9,8 +9,8 @@ const initialState = Immutable ( {
 	videoPlayerIsMaximized: false,
 	videoPlayerIsLoaded: false,
 	videoPlayerState: {
-		playerState: 'unstarted',
-		timeInVideo: 0
+		status: 'unstarted',
+		media_time: 0
 	},
 	videoProgress: 0
 } )
@@ -32,6 +32,8 @@ export const videoPlayerReducer = ( state = initialState, action ) => {
 
 		case videoPlayerActions.SET_PLAYER_PROGRESS:
 			return Immutable.set ( state, 'videoProgress', action.payload )
+		case "END_VIDEO": 
+			return state.merge(initialState)
 
 		default:
 			return state

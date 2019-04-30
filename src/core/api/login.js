@@ -1,7 +1,4 @@
-import { restUtils } from '../utils/index'
-
-// Constants
-import { BASE_URL } from "../constants"
+import { httpRequest } from './httpRequest'
 
 export const baseApi = {
 	/**
@@ -13,14 +10,6 @@ export const baseApi = {
 	login: ( email, password ) => {
         const params = {email, password}
 
-		const options = {
-			method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(params)
-		}
-
-		return fetch ( `${BASE_URL}login`, options )
-			.then ( restUtils.handleRestResponse )
-			.then ( ( response ) => response )
+		return httpRequest.post('login', params);
 	}
 }

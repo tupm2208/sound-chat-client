@@ -36,7 +36,7 @@ export default class VideoPlayerControls extends Component {
 		if ( !videoDuration ) {
 			return false
 		}
-		const videoIsPlaying = partyVideoPlayerState.playerState === 'playing'
+		const videoIsPlaying = partyVideoPlayerState.status === 'playing'
 		const videoIsMuted = videoPlayerIsMuted
 		const videoIsMaximized = videoPlayerIsMaximized
 		const progressBarWidth = this.progressBar ? this.progressBar.offsetWidth : null
@@ -61,8 +61,8 @@ export default class VideoPlayerControls extends Component {
 			<div className="player-controls-overlay"
 				 onClick={ () =>
 					 emitNewPlayerStateToServer ( {
-						 playerState: videoIsPlaying ? 'paused' : 'playing',
-						 timeInVideo: progressInSeconds
+						 status: videoIsPlaying ? 'pausing' : 'playing',
+						 media_time: progressInSeconds
 					 }, partyId )
 				 }>
 
@@ -73,8 +73,9 @@ export default class VideoPlayerControls extends Component {
 					} }
 						 onClick={ ( event ) => {
 							 emitNewPlayerStateToServer ( {
-								 playerState: videoIsPlaying ? 'playing' : 'paused',
-								 timeInVideo: videoUtils.getAmountOfSecondsAtXPos ( event, videoDuration )
+								 status: 'seeking',
+								 media_time: videoUtils.getAmountOfSecondsAtXPos ( event, videoDuration ),
+								//  videoStatus: videoIsPlaying ? 'pausing' : 'playing',
 							 }, partyId )
 						 } }>
 						<div className="background-bar"></div>
@@ -85,8 +86,8 @@ export default class VideoPlayerControls extends Component {
 						<span className={ playBtnClassNames }
 							  onClick={ () =>
 								  emitNewPlayerStateToServer ( {
-									  playerState: videoIsPlaying ? 'paused' : 'playing',
-									  timeInVideo: progressInSeconds
+									  status: videoIsPlaying ? 'pausing' : 'playing',
+									  media_time: progressInSeconds
 								  }, partyId )
 							  }/>
 						<span className={muteBtnClassNames} onClick={ handleMuteBtnPressed }/>

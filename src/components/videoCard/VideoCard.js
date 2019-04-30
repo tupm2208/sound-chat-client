@@ -17,6 +17,7 @@ export default class VideoCard extends Component {
 
 	render () {
 		const { video, videoSource, handleVideoSelection } = this.props
+		// console.log("video: ", video, videoSource)
 		const videoDetails = videoUtils.getVideoDetails ( video, videoSource )
 
 		return (

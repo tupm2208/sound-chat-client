@@ -1,4 +1,4 @@
-.chat-box{
+.media-box{
     flex:1;
     box-sizing: border-box;
     margin: 10px 0 15px 0;
@@ -7,17 +7,21 @@
     flex-direction: column;
 }
 
-.chat-box .message-box{
+.media-box .media-box{
     flex: 1;
     padding: 5px;
     overflow-x: hidden;
     overflow-y: auto;
     display: flex;
     align-items: flex-end;
-    height: 200px;
+    height: 175px;
 }
 
-.chat-box .message-box .messages-wrapper{
+.imgDefault {
+    height: 70px;
+}
+
+.media-box .media-box .medias-wrapper{
     width: 100%;
     max-height: 100%;
     display: -ms-flexbox;
@@ -25,27 +29,61 @@
     flex-direction: column;
 }
 
-.chat-box .message-box .messages-wrapper .message-wrapper{
+.media-box .media-box .medias-wrapper .media-wrapper{
     margin: 3px 0;
     width: 100%;
 }
 
-.chat-box .message-box .message{
-    float: left;
+.media-box .media-box .item{
+    display: flex;
     background: #375b5f;
-    width: 40%;
-    max-width: 400px;
+    width: 100%;
+    height: 80px;
     align-self: flex-start;
     border-radius: 3px;
     padding: 5px;
 }
 
-.chat-box .message-box .message.self{
+.item .title {
+    max-width: 260px;
+}
+
+.vote {
+    float: right;
+    background-color: #4CAF50;
+    width: 80px;
+    height: 100%;
+    border: 0;
+    border-radius: 12px;
+    color: white;
+}
+
+.vote:hover {
+    color: #4CAF50;;
+    background-color: white;
+}
+
+.unvote {
+    float: right;
+    background-color: rgb(185, 49, 24);
+    width: 80px;
+    height: 100%;
+    border: 0;
+    border-radius: 12px;
+    color: white;
+}
+
+.unvote:hover {
+    color: rgb(185, 49, 24);
+    background-color: white;
+}
+
+.media-box .media-box .media.self{
     background: #5d5e5f;
     float: right;
 }
 
-.chat-box .input-box{
+.media-box .input-box{
     background: #191919;
     height: 50px;
     width: 100%;
@@ -56,7 +94,7 @@
     box-shadow: 0px -10px 15px 0px rgba(0,0,0,0.2);
 }
 
-.chat-box .input-box .input{
+.media-box .input-box .input{
     outline: none;
     border: 0;
     padding: 0 25px;
@@ -70,7 +108,7 @@
     -webkit-font-smoothing: antialiased;
 }
 
-.chat-box .input-box .submit{
+.media-box .input-box .submit{
     background: #343537;
     border: none;
     border-left: 1px solid #737373;
@@ -80,7 +118,7 @@
     -webkit-appearance: none;
 }
 
-.chat-box .input-box .submit:hover{
+.media-box .input-box .submit:hover{
     cursor: pointer;
     background: #434446;
 }
@@ -90,9 +128,9 @@
 /*----------------------------------*/
 
 @media screen and (max-width: 46.25em){
-    .chat-box .input-box .input,
-    .chat-box .input-box .submit,
-    .chat-box .message-box .message{
+    .media-box .input-box .input,
+    .media-box .input-box .submit,
+    .media-box .media-box .media{
         font-size: 0.75rem;
     }
 }

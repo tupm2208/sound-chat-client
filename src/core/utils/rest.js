@@ -11,7 +11,7 @@ export const restUtils = {
 				.then ( message => {
 					throw {
 						status: false,
-						message: message.error_message
+						message: message.message
 					}
 				} )
 		}

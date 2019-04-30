@@ -5,45 +5,98 @@ import Immutable from 'seamless-immutable'
 import { partyActions } from './index'
 
 const initialState = Immutable ( {
-	partyId: null,
+	id: null,
 	partyState: 'active',
 	selectedVideo: {
 		id: '',
 		title: '',
 		description: '',
 		thumbnailSrc: '',
-		videoSource: ''
+		videoSource: '',
+		media_id: 0
 	},
 	usersInParty: [],
 	messagesInParty: [],
-	videoPlayerState: {
-		playerState: 'unstarted',
-		timeInVideo: 0
-	}
+	fingerprint: '',
+	medias: []
 } )
 
 export const partyReducer = ( state = initialState, action ) => {
 	switch ( action.type ) {
 
-		case partyActions.WS_TO_CLIENT_SET_PARTY_ID:
-			return Immutable.set ( state, 'partyId', action.payload )
+		case partyActions.GET_VIDEO_SUCCESSFUL:
+			return state.merge(action.payload)
 
-		case partyActions.WS_TO_CLIENT_SET_PARTY_STATE:
-			return Immutable.set ( state, 'partyState', action.payload )
+		case partyActions.NEW_INCOME_MESSAGE:
+			return state.set("messagesInParty", state.messagesInParty.concat(action.payload))
+		
+		case partyActions.END_VIDEO:
+			return state.set("selectedVideo", {
+				id: '',
+				title: '',
+				description: '',
+				thumbnailSrc: '',
+				videoSource: ''
+			})
 
-		case partyActions.WS_TO_CLIENT_SET_SELECTED_VIDEO:
-			return Immutable.set ( state, 'selectedVideo', action.payload )
+		case partyActions.MEDIA_EVENT_DATA:
+			const newMedias = JSON.parse(JSON.stringify(state.medias))
+			let flag = false;
+			newMedias.forEach(e => {
+				if(e.id === action.payload.media.id) {
+					flag = true;
+				}
+			})
+			if(!flag) newMedias.push(action.payload.media);
 
-		case partyActions.WS_TO_CLIENT_SET_USERS_IN_PARTY:
-			return Immutable.set ( state, 'usersInParty', action.payload )
+			return state.set("medias", newMedias);
 
-		case partyActions.WS_TO_CLIENT_PARTY_MESSAGE_RECEIVED:
-			return Immutable.set ( state, 'messagesInParty', action.payload )
+		case partyActions.VOTE_MEDIA:
+			const newMedias2 = JSON.parse(JSON.stringify(state.medias))
+			newMedias2.forEach(element => {
+				if(action.payload.media === element.id || action.payload.id === element.id) {
+					if(action.payload.total_vote !== undefined) {
+						element.total_vote = action.payload.total_vote;
+					}
+					if(action.payload.is_voted !== undefined) {
+						element.is_voted = action.payload.is_voted;
+					}
+				}
+			});
+			return state.set("medias", newMedias2);
 
-		case partyActions.WS_TO_CLIENT_SET_PLAYER_STATE:
-			return Immutable.set ( state, 'videoPlayerState', action.payload )
+		case partyActions.DELETE_MEDIA: 
 
+			return state.set("medias", state.medias.filter(element => {
+				return element.id !== action.payload.id
+			}))
+		
+		case partyActions.EXIT_PARTYCIPANT:
+			return state.set("usersInParty", state.usersInParty.filter(element => {
+				return element.user_id !== action.payload.user_id
+			}))
 
+		case partyActions.NEW_PARTYCIPANT:
+			const users = JSON.parse(JSON.stringify(state.usersInParty))
+			return state.set("usersInParty", users.push(action.payload))
+
+		case "URL_CHANGE": 
+
+			return Immutable ( {
+				id: null,
+				partyState: 'active',
+				selectedVideo: {
+					id: '',
+					title: '',
+					description: '',
+					thumbnailSrc: '',
+					videoSource: ''
+				},
+				usersInParty: [],
+				messagesInParty: [],
+				fingerprint: '',
+				medias: []
+			} )
 		default:
 			return state
 	}
