@@ -11,6 +11,7 @@ import { partyReducer } from './party'
 import { loginReducer } from './login'
 import { loadingReducer } from './loading'
 import { mediaReducer } from './media'
+import { roomListReducer } from './rooms'
 
 export default combineReducers ( {
 	app: appReducer,
@@ -21,5 +22,6 @@ export default combineReducers ( {
 	party: partyReducer,
 	login: loginReducer,
 	loading: loadingReducer,
-	currentMedia: mediaReducer
+	currentMedia: mediaReducer,
+	rooms: roomListReducer
 } )

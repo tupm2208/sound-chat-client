@@ -14,10 +14,12 @@ import { initialVideoQuery } from '../../core/constants'
 import { appActions } from '../../core/app'
 import { userActions } from '../../core/user'
 import { videoListActions } from '../../core/videoList'
+import { roomListActions } from '../../core/rooms'
 
 // Components
 import PageHeader from '../../components/pageHeader/PageHeader'
 import VideoList from '../../components/videoList/VideoList'
+import RoomList from '../../components/roomList/RoomList'
 
 class BrowsePage extends Component {
 	static propTypes = {
@@ -33,6 +35,9 @@ class BrowsePage extends Component {
 	componentDidMount () {
 		// Load an initial set of movies from Youtube into Redux store
 		this.props.loadYoutubeVideos ( initialVideoQuery.query, initialVideoQuery.videoType )
+		if (this.props.user) {
+			this.props.loadRoomList();
+		}
 
 		// Disconnect from any parties the user was still connected to
 		this.props.disconnectFromAllParties ()
@@ -50,8 +55,19 @@ class BrowsePage extends Component {
 		}
 	}
 
+	handleRoomSelection(roomId) {
+		const { handleRoomSelection, router } = this.props;
+		const user = persistUtils.loadProperty('user', {});
+		if (!user.id) {
+			//show popup and redirect to loginpage
+			router.push('/login');
+		} else {
+			handleRoomSelection(roomId, router)
+		}
+	}
+
 	render () {
-		const { user, isFetchingVideos, youtubeVideos } = this.props
+		const { user, isFetchingVideos, youtubeVideos, roomList } = this.props
 
 
 		return (
@@ -78,6 +94,18 @@ class BrowsePage extends Component {
 						handleVideoSelection={this.handleVideoSelection.bind(this)}
 					/>
 				</div>
+
+				<PageHeader
+					titleLeader='Your conversations'
+				/>
+
+				<div className="g-row">
+					<RoomList 
+						showLoadingAnimation={isFetchingVideos}
+						roomList={roomList}
+						handleRoomSelection={this.handleRoomSelection.bind(this)}
+					/>
+				</div>
 			</div>
 		)
 	}
@@ -92,6 +120,8 @@ const mapStateToProps = ( state ) => {
 	return {
 		isFetchingVideos: state.videoList.isFetching,
 		youtubeVideos: state.videoList.youtubeVideos,
+		roomList: state.rooms.roomList,
+		isFetchingRooms: state.rooms.isFetching,
 		user: state.user,
 	}
 }
@@ -100,7 +130,9 @@ const mapDispatchToProps = {
 	navigateToPath: appActions.navigateToPath,
 	disconnectFromAllParties: userActions.disconnectFromAllParties,
 	loadYoutubeVideos: videoListActions.loadYoutubeVideos,
-	handleVideoSelection: videoListActions.handleVideoSelection
+	handleVideoSelection: videoListActions.handleVideoSelection,
+	loadRoomList: roomListActions.loadRoomList,
+	handleRoomSelection: roomListActions.handleRoomSelection
 }
 
 BrowsePage = connect (

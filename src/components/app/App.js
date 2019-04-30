@@ -51,13 +51,13 @@ class App extends Component {
 		if(!type) {
 			toast.success(msg, {
 				containerId: 'A',
-				position: toast.POSITION.TOP_CENTER,
+				position: toast.POSITION.BOTTOM_LEFT,
 				autoClose: false
 			})
 		} else {
 			toast.error(msg, {
 				containerId: 'A',
-				position: toast.POSITION.TOP_CENTER,
+				position: toast.POSITION.BOTTOM_LEFT,
 				autoClose: false
 			})
 		}
