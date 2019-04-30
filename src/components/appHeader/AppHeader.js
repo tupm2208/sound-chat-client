@@ -1,6 +1,7 @@
 // Libs & utils
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { persistUtils } from '../../core/utils'
 
 // Assets
 import logo from '../../assets/logo_white.svg'
@@ -27,21 +28,32 @@ export default class AppHeader extends Component {
 		this.props.router.push ( '/' )
 	}
 
+	logout = () => {
+		persistUtils.saveProperty("access_token",'');
+		this.props.router.push('/login')
+	}
+
 	/**
 	 * Conditionally render a search button
 	 * @param bool
 	 * @returns {*}
 	 */
-	renderSearchButton = ( bool ) => {
+	renderSearchButton = ( isLogin ) => {
 		return (
-				<li>
-					<span className="btn btn-icon fa fa-search" onClick={this.props.toggleSearch}/>
-				</li>
+				<ul>
+					<li>
+						<span className="btn btn-icon fa fa-search" onClick={this.props.toggleSearch}/>
+					</li>
+					{!isLogin?
+						(<li><span className="btn btn-icon fa fa-sign-in" onClick={this.logout}/></li>):
+						(<li><span className="btn btn-icon fa fa-sign-out" onClick={this.logout}/> </li>)}
+				</ul>
+				
 			)
 	}
 
 	render () {
-		const { search, handleSearch, user } = this.props
+		const { search, handleSearch, user, isLogin } = this.props
 
 		return (
 			<div className="app-header">
@@ -54,7 +66,7 @@ export default class AppHeader extends Component {
 						</div>
 
 						<ul className="header-actions">
-							{this.renderSearchButton ( user.userName )}
+							{this.renderSearchButton ( isLogin )}
 						</ul>
 
 					</div>

@@ -72,6 +72,7 @@ class App extends Component {
 					toggleSearch={this.props.toggleSearch}
 					handleSearch={this.handleSearch.bind(this)}
 					router={this.props.router}
+					isLogin={this.props.isLogin}
 				/>
 
 				<main className="main">
@@ -94,7 +95,8 @@ const mapStateToProps = ( state ) => {
 		user: state.user,
 		app: state.app,
 		party: state.party,
-		loading: state.loading.status
+		loading: state.loading.status,
+		isLogin: state.app.isLogin
 	}
 }
 

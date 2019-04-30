@@ -7,7 +7,8 @@ export const WEBSOCKET_URL = '/'
 //=====================================
 //  YOUTUBE API
 //-------------------------------------
-export const YOUTUBE_API_KEY = 'AIzaSyC9gNIsNUmKaIQ1KcOFGwZiX6Uvv530U34'
+// export const YOUTUBE_API_KEY = 'AIzaSyC9gNIsNUmKaIQ1KcOFGwZiX6Uvv530U34'
+export const YOUTUBE_API_KEY = 'AIzaSyDTLiPIRIn1PGKsUxJXtn7PEqb-nYTlOOo'
 
 const host = "localhost"
 
