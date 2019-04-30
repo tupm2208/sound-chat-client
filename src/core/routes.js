@@ -3,7 +3,7 @@ import BrowsePage from '../pages/browse/BrowsePage'
 import PartyPage from '../pages/party/PartyPage'
 import SearchPage from '../pages/search/SearchPage'
 import LoginPage from '../pages/login/LoginPage'
-
+import RegisterPage from '../pages/register/RegisterPage'
 
 export const routes = {
 	path: '/',
@@ -25,6 +25,10 @@ export const routes = {
 		{
 			path: '/login',
 			components: LoginPage
+		},
+		{
+			path: '/register',
+			components: RegisterPage
 		}
 	]
 };

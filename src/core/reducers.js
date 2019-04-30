@@ -9,6 +9,7 @@ import { videoListReducer } from './videoList'
 import { userReducer } from './user'
 import { partyReducer } from './party'
 import { loginReducer } from './login'
+import { registerReducer } from './register'
 import { loadingReducer } from './loading'
 
 export default combineReducers ( {
@@ -19,5 +20,6 @@ export default combineReducers ( {
 	search: searchReducer,
 	party: partyReducer,
 	login: loginReducer,
+	register: registerReducer,
 	loading: loadingReducer
 } )
