@@ -19,19 +19,38 @@ export const registerAction = {
         return async function ( dispatch ) {
             dispatch({type: "START_LOADING"})
             await baseRegisterApi.register(email, password, name).then( res => {
-                const {data, message} = res; 
+                const {message} = res; 
                 
-                sessionStorage.setItem('user', JSON.stringify(data));
                 dispatch (registerAction.registerSuccess ({message, status: true}))
-                router.push('/login')
-            }, error => {
-                console.log(error); 
 
+                const redirect = router.location.query.redirect
+                router.push({pathname: "/login", query: {redirect}})
+            }, error => {
                 dispatch(registerAction.registerError(error))
+                registerAction.handleErrorData(error.error_data, dispatch)
             })
 
             dispatch({type: "STOP_LOADING"})
 
+        }
+    },
+
+    dispatch: (params = {}) => {
+        dispatch => {
+
+            dispatch(params)
+        }
+    }, 
+    handleErrorData: (errorData = {}, dispatch) => {
+
+        for(let e in errorData) {
+            dispatch({
+                type: 'TOASTER',
+                payload: {
+                    message: errorData[e][0],
+                    error: 1
+                }
+            })
         }
     }
 }
