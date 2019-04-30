@@ -93,7 +93,6 @@ class BrowsePage extends Component {
 
 	render () {
 		const { user, isFetchingVideos, youtubeVideos } = this.props
-		console.log(user);
 		return (
 			<div className="browse-page">
 				<PageHeader
