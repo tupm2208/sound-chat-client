@@ -27,6 +27,13 @@ export const fingerprintActions = {
 			}, error => {
 				dispatch({type: 'STOP_LOADING'})
 				console.log("error join room: ", error);
+				dispatch({
+					type: 'TOASTER',
+					payload: {
+						message: error.message,
+						error: 1
+					}
+				})
 			});
 		}
 	},

@@ -31,7 +31,7 @@ class Fingerprint extends Component {
 
 		return (
 			<div className="browse-page">
-				
+				<button onClick={() => {this.props.router.push('/')}}>go to home page!</button>
 			</div>
 		)
 	}
