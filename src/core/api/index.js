@@ -1,5 +1,6 @@
 export { youtubeApi } from './youtube'
 export { baseApi } from './login'
+export { baseRegisterApi } from './register'
 export { mediaApi } from './media'
 export { roomApi } from './room'
 export { pusherApi } from './pusher'

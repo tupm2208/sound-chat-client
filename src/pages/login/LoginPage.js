@@ -62,6 +62,13 @@ class LoginPage extends Component {
 		e.preventDefault()
 	}
 
+	navigateToRegister() {
+		const {router} = this.props;
+		const redirect = router.location.query.redirect
+		
+		router.push({pathname: "/register", query: {redirect}})
+	}
+
 	render () {
 
 		const {message} = this.props;
@@ -102,7 +109,7 @@ class LoginPage extends Component {
 								</li>
 								
 								<li>
-									<a style={{color: "navy"}} className="text-right">Create New Account</a>
+									<a onClick={this.navigateToRegister.bind(this)} style={{color: "navy",cursor: "pointer"}} className="text-right">Create New Account</a>
 								</li>
 								<li className="clearfix"></li>
 							</ul>

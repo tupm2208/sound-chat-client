@@ -8,10 +8,12 @@ export const restUtils = {
 			return Promise.resolve ( response.json () )
 		} else {
 			return Promise.resolve ( response.json () )
-				.then ( message => {
+				.then ( error => {
+					const { error_data, message } = error;
 					throw {
 						status: false,
-						message: message.message
+						message,
+						error_data
 					}
 				} )
 		}

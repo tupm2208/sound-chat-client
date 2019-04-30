@@ -3,6 +3,7 @@ import BrowsePage from '../pages/browse/BrowsePage'
 import PartyPage from '../pages/party/PartyPage'
 import SearchPage from '../pages/search/SearchPage'
 import LoginPage from '../pages/login/LoginPage'
+import RegisterPage from '../pages/register/RegisterPage'
 import Fingerprint from '../pages/fingerprint/Fingerprint'
 
 
@@ -26,6 +27,10 @@ export const routes = {
 		{
 			path: '/login',
 			components: LoginPage
+		},
+		{
+			path: '/register',
+			components: RegisterPage
 		},
 		{
 			path: '/fingerprint/:id',
