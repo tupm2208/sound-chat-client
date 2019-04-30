@@ -40,8 +40,13 @@ export const partyReducer = ( state = initialState, action ) => {
 
 		case partyActions.MEDIA_EVENT_DATA:
 			const newMedias = JSON.parse(JSON.stringify(state.medias))
-
-			newMedias.push(action.payload.media);
+			let flag = false;
+			newMedias.forEach(e => {
+				if(e.id === action.payload.media.id) {
+					flag = true;
+				}
+			})
+			if(!flag) newMedias.push(action.payload.media);
 
 			return state.set("medias", newMedias);
 
