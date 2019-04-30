@@ -11,6 +11,13 @@ export const appActions = {
 	navigateToPath: path => ({
 		type: appActions.NAVIGATE_TO_PATH,
 		payload: `${path}`
-	})
+	}),
+	urlChange: () => {
+		return dispatch => {
+			dispatch({
+				type: "URL_CHANGE"
+			})
+		}
+	}
 
 }

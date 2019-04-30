@@ -32,5 +32,12 @@ export const roomApi = {
 	getRoomInfo: (id) => {
 
 		return httpRequest.get(`rooms/${id}`)
+	},
+
+	joinRoom: (fingerprint) => {
+
+		const params = {fingerprint};
+
+		return httpRequest.post('rooms/fingerprint', params);
 	}
 }

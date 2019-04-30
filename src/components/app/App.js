@@ -36,17 +36,9 @@ class App extends Component {
 		if (message !== this.props.app.message || error !== this.props.app.error) {
 			this.notifyA(message, error)
 		}
-		// Check if the current path has been changed, if so -> navigate to new path
-		// if ( nextProps.app.currentPath !== this.props.router.location.pathname) {
-		// 	// console.log("nextProps.app.currentPath: ", nextProps.app.currentPath)
-		// 	this.props.router.push ( nextProps.app.currentPath )
-		// }
-
-		// If the partyId changes -> navigate to new party
-		// if ( nextProps.party.partyId !== this.props.party.partyId ) {
-		// 	// Navigate to newly created party
-		// 	this.props.navigateToPath ( `/party/${nextProps.party.partyId}` )
-		// }
+		this.props.router.listen(() => {
+			this.props.urlChange();
+		});
 	}
 
 	notifyA = (msg, type) => {
@@ -108,7 +100,8 @@ const mapDispatchToProps = {
 	toggleSearch: searchActions.toggleSearchField,
 	setUserName: userActions.setUserName,
 	startLoading: loadingActions.startLoading,
-	stopLoading: loadingActions.stopLoading
+	stopLoading: loadingActions.stopLoading,
+	urlChange: appActions.urlChange
 }
 
 App = connect ( mapStateToProps, mapDispatchToProps ) ( App )

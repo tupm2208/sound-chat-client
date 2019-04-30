@@ -64,6 +64,24 @@ export const partyReducer = ( state = initialState, action ) => {
 		return state.set("medias", state.medias.filter(element => {
 			return element.id !== action.payload.id
 		}))
+
+		case "URL_CHANGE": 
+
+			return Immutable ( {
+				id: null,
+				partyState: 'active',
+				selectedVideo: {
+					id: '',
+					title: '',
+					description: '',
+					thumbnailSrc: '',
+					videoSource: ''
+				},
+				usersInParty: [],
+				messagesInParty: [],
+				fingerprint: '',
+				medias: []
+			} )
 		default:
 			return state
 	}

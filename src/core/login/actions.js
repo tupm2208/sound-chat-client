@@ -27,12 +27,16 @@ export const loginAction = {
 				ssStorage.set('user', data);
 				ssStorage.set('access_token', access_token);
 				pusherApi.changeAccessToken(access_token);
+				if(router.location.query.redirect) {
+					router.push(router.location.query.redirect)
+				} else {
+					router.push('/')
+				}
 				dispatch (loginAction.loginSuccess ({message, status: true}))
 				// dispatch ({
 				// 	type: 'NAVIGATE_TO_PATH',
 				// 	payload: '/'
 				// })
-				router.push('/')
 			}, error => {
 				console.log(error);
 				
