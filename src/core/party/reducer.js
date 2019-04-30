@@ -12,7 +12,8 @@ const initialState = Immutable ( {
 		title: '',
 		description: '',
 		thumbnailSrc: '',
-		videoSource: ''
+		videoSource: '',
+		media_id: 0
 	},
 	usersInParty: [],
 	messagesInParty: [],

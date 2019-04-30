@@ -54,7 +54,7 @@ export const partyActions = {
 			channel.bind('proceed', (data) => {
 				console.log("proceed: ", data);
 				if(data.url) {
-					partyActions.getPlayingVideo(data.url, dispatch, data);
+					partyActions.getPlayingVideo(data.url, dispatch, data, data.id);
 					dispatch({
 						type: partyActions.DELETE_MEDIA,
 						payload: data
@@ -149,7 +149,7 @@ export const partyActions = {
 		}
 	},
 
-	getPlayingVideo: (url, dispatch, data) => {
+	getPlayingVideo: (url, dispatch, data, id) => {
 		const youtubeId = getYoutubeId(url);
 		console.log("res media: ", youtubeId);
 		youtubeApi.fetchYoutubeIdResults(youtubeId).then(yRes => {
@@ -161,10 +161,18 @@ export const partyActions = {
 					selectedVideo: {
 						videoSource: 'youtube',
 						...yRes.items[0],
-						...yRes.items[0].snippet
+						...yRes.items[0].snippet,
+						media_id: id
 					}
 				}
 			})
+
+			if(id) {
+				dispatch({
+					type: partyActions.DELETE_MEDIA,
+					payload: {id}
+				})
+			}
 
 			if(data) {
 				dispatch({
