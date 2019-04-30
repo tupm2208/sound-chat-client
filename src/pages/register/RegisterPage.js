@@ -51,14 +51,14 @@ class RegisterPage extends Component {
 							{message}
 							</div>
 							<div className="field-group">
-								<span className="fa fa-suitcase" aria-hidden="true"></span>
+								<span className="fa fa-user" aria-hidden="true"></span>
 								<div className="wthree-field">
 									<input name="name" id="name" type="text" value={this.state.name} onChange={this.handleChange} placeholder="Username" required />
 								</div>
 							</div>
 
 							<div className="field-group">
-								<span className="fa fa-user" aria-hidden="true"></span>
+								<span className="fa fa-suitcase" aria-hidden="true"></span>
 								<div className="wthree-field">
 									<input name="email" id="email" type="text" value={this.state.email} onChange={this.handleChange} placeholder="Email" required/>
 								</div>
@@ -74,10 +74,10 @@ class RegisterPage extends Component {
 							<small><a style={{fontSize: "14px"}} >Already created account? </a></small>
 							
 							
-							<a style={{color: "navy"}} className="text-right">Login</a>	
-								<div className="wthree-field">
-									<button name="register" type="submit" className="btn btn-success btn-lg" onClick={this.register}>Register</button>
-								</div>
+							<a style={{color: "navy"}} className="text-right">Login</a>
+							<div className="wthree-field">
+								<input name="submit" type="submit" value="submit" />
+							</div>
 						</form>
 					</div>
 				</div>
