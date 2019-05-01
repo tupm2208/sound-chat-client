@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "staging": "soundchat",
+    "default": "soundchat"
+  }
+}
