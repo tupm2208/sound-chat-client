@@ -25,31 +25,26 @@ export const mediaActions = {
 	},
 	upvote: (media, partyId) => {
 		return dispatch => {
-			dispatch({type: "START_LOADING"})
 			mediaApi.upvote(media.id, partyId).then( res => {
 				media.is_voted = true;
-				dispatch({type: "STOP_LOADING"})
 				dispatch({
 					type: "VOTE_MEDIA",
 					payload: media
 				})
 			}, error => {
-				dispatch({type: "STOP_LOADING"})
 			})
 		}
 	},
 	downvote: (media) => {
 		return dispatch => {
-			dispatch({type: "START_LOADING"})
+			dispatch({type: ""})
 			mediaApi.downvote(media.id).then( res => {
 				media.is_voted = false;
-				dispatch({type: "STOP_LOADING"})
 				dispatch({
 					type: "VOTE_MEDIA",
 					payload: media
 				})
 			}, error => {
-				dispatch({type: "STOP_LOADING"})
 			})
 		}
 	},

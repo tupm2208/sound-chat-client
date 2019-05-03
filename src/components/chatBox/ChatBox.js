@@ -42,7 +42,7 @@ export default class ChatBox extends Component {
 						<div className="message-wrapper" key={index}>
 							<div className={cssClasses}>
 								<span className="username">{cpMessage.username}: </span>
-								<span className="body">{message.content? message.content: message.message}</span>
+								<span className="body" style={{background: 'unset'}}>{message.content? message.content: message.message}</span>
 							</div>
 						</div>
 					)

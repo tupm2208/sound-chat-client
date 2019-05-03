@@ -139,7 +139,7 @@ export const partyActions = {
 					payload: res.data
 				})
 				if(res.data.url) {
-					partyActions.getPlayingVideo(res.data.url, dispatch);
+					partyActions.getPlayingVideo(res.data.url, dispatch,null , res.data.id);
 				} else {
 					dispatch({
 						type: 'TOASTER',
@@ -157,9 +157,7 @@ export const partyActions = {
 
 	getPlayingVideo: (url, dispatch, data, id) => {
 		const youtubeId = getYoutubeId(url);
-		console.log("res media: ", youtubeId);
 		youtubeApi.fetchYoutubeIdResults(youtubeId).then(yRes => {
-			console.log("yres: ", yRes);
 
 			dispatch({
 				type: partyActions.GET_VIDEO_SUCCESSFUL,
@@ -191,12 +189,9 @@ export const partyActions = {
 
 	sendMessageToParty: ( message, partyId ) => {
 		return dispatch => {
-			dispatch({type: "START_LOADING"})
 			console.log("partyid: ", partyId);
 			messageApi.send(partyId, message).then(res => {
-				dispatch({type: "STOP_LOADING"})
 			}, error => {
-				dispatch({type: "STOP_LOADING"})
 			})
 		}
 	},
