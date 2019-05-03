@@ -33,10 +33,6 @@ export const loginAction = {
 					router.push('/')
 				}
 				dispatch (loginAction.loginSuccess ({message, status: true}))
-				// dispatch ({
-				// 	type: 'NAVIGATE_TO_PATH',
-				// 	payload: '/'
-				// })
 			}, error => {
 				console.log(error);
 				

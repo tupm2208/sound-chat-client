@@ -1,6 +1,3 @@
-//=====================================
-//  youtube.js : Containing functionality to communicate with the Youtube API
-//-------------------------------------
 
 // Libs & utils
 import queryString from 'query-string'
