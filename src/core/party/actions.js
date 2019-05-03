@@ -237,12 +237,31 @@ export const partyActions = {
 	addMediaLink: (url, partyId) => {
 
 		return dispatch => {
-			dispatch({type: "START_LOADING"})
-			mediaApi.create(partyId, url).then(res => {
-				dispatch({type: "STOP_LOADING"})
-			}, error => {
-				dispatch({type: "STOP_LOADING"})
+			const id = getYoutubeId(url);
+			youtubeApi.fetchYoutubeIdResults(id).then( video => {
+				if(video.items.length) {
+					
+					mediaApi.create(partyId, url).then(res => {
+					}, error => {
+						dispatch({
+							type: "TOASTER",
+							payload: {
+								error: 1,
+								message: `cannot create media?${new Date().getTime()}`
+							}
+						})
+					})
+				} else {
+					dispatch({
+						type: "TOASTER",
+						payload: {
+							error: 1,
+							message: `invalid youtube link?${new Date().getTime()}`
+						}
+					})
+				}
 			})
+			
 		}
 	},
 
@@ -281,5 +300,10 @@ export const partyActions = {
 }
 
 function getYoutubeId(url) {
-	return url.split('v=')[1].split("&")[0]
+	if(url) {
+		if(url.split('v=')[1]) {
+			return url.split('v=')[1].split("&")[0]
+		}
+	}
+	return ''
 }

@@ -53,7 +53,7 @@ export default class AppHeader extends Component {
 	}
 
 	render () {
-		const { search, handleSearch, user, isLogin } = this.props
+		const { search, handleSearch, isLogin } = this.props
 
 		return (
 			<div className="app-header">

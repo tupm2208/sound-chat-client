@@ -24,10 +24,10 @@ export const videoListActions = {
 	 * @param videoSource
 	 * @returns {Function}
 	 */
-	handleVideoSelection: (userId, videoId, router) => {
+	handleVideoSelection: (userId, videoId, router, name) => {
 		return function ( dispatch ) {
 			dispatch({type: "START_LOADING"})
-			roomApi.create(userId).then( res => {
+			roomApi.create(userId, name).then( res => {
 				console.log("create room success: ", res)
 
 				mediaApi.create(res.data.id, `https://www.youtube.com/watch?v=${videoId}`).then( mediaRes => {
@@ -37,6 +37,8 @@ export const videoListActions = {
 				}, error => {
 					dispatch({type: "STOP_LOADING"})
 				})
+			}, error => {
+				dispatch({type: "STOP_LOADING"})
 			})
 		}
 	},

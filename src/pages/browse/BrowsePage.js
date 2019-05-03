@@ -21,6 +21,8 @@ import { roomListActions } from '../../core/rooms'
 import PageHeader from '../../components/pageHeader/PageHeader'
 import VideoList from '../../components/videoList/VideoList'
 import RoomList from '../../components/roomList/RoomList'
+import SetUserNamePopup from '../../components/setUserNamePopup/SetUserNamePopup'
+import { newRoomAction } from '../../core/newRoom';
 
 class BrowsePage extends Component {
 	static propTypes = {
@@ -49,15 +51,23 @@ class BrowsePage extends Component {
 		this.props.disconnectFromAllParties ()
 	}
 
-	handleVideoSelection(videoDetail, videoType) {
-		const { handleVideoSelection, router } = this.props
+	handleVideoSelection(videoDetail, roomName) {
+		const { router, setPreData, showPopup } = this.props
 		const user = persistUtils.loadProperty('user', {});
 		if (!user.id) {
 			//show popup and redirect to loginpage
 			router.push('/login');
 		} else {
-			handleVideoSelection(user.id, videoDetail.id, router)
+			// handleVideoSelection(user.id, videoDetail.id, router, roomName)
+			showPopup();
+			setPreData(user.id, videoDetail.id)
 		}
+	}
+
+	callBackCreateRoom(name) {
+		const { newRoomState, handleVideoSelection, router} = this.props;
+
+		handleVideoSelection(newRoomState.userId, newRoomState.videoId, router, name)
 	}
 
 	handleRoomSelection(roomId) {
@@ -91,7 +101,7 @@ class BrowsePage extends Component {
 	}
 
 	render () {
-		const { user, isFetchingVideos, youtubeVideos } = this.props
+		const { user, isFetchingVideos, youtubeVideos, isShow, setRoomName } = this.props
 		return (
 			<div className="browse-page">
 				<PageHeader
@@ -116,6 +126,12 @@ class BrowsePage extends Component {
 						handleVideoSelection={this.handleVideoSelection.bind(this)}
 					/>
 
+					<SetUserNamePopup
+						isVisible={isShow}
+						handleSetNewRoomName={setRoomName}
+						callBackCreateRoom={this.callBackCreateRoom.bind(this)}
+					/>
+
 					{ generalUtils.isLogin() && this.renderRoomList() }
 				</div>
 
@@ -136,6 +152,9 @@ const mapStateToProps = ( state ) => {
 		roomList: state.rooms.roomList,
 		isFetchingRooms: state.rooms.isFetching,
 		user: state.user,
+		roomName: state.newRoom.name,
+		isShow: state.newRoom.isShow,
+		newRoomState: state.newRoom
 	}
 }
 
@@ -145,7 +164,10 @@ const mapDispatchToProps = {
 	loadYoutubeVideos: videoListActions.loadYoutubeVideos,
 	handleVideoSelection: videoListActions.handleVideoSelection,
 	loadRoomList: roomListActions.loadRoomList,
-	handleRoomSelection: roomListActions.handleRoomSelection
+	handleRoomSelection: roomListActions.handleRoomSelection,
+	setRoomName: newRoomAction.setRoomName,
+	setPreData: newRoomAction.setPreData,
+	showPopup: newRoomAction.showPopup
 }
 
 BrowsePage = connect (

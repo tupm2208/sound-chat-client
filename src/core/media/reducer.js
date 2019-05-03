@@ -8,7 +8,8 @@ const initialState = Immutable ( {
 	status: 'pausing',
 	media_time: 0,
 	total_vote: 0,
-	url: ''
+	url: '',
+	id: 0
 } )
 
 export const mediaReducer = ( state = initialState, action ) => {

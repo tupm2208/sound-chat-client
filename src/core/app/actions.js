@@ -1,6 +1,3 @@
-// Libs & utils
-import { generalUtils } from '../utils/index'
-
 export const appActions = {
 	NAVIGATE_TO_PATH: 'NAVIGATE_TO_PATH',
 

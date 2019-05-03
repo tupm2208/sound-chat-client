@@ -1,5 +1,4 @@
 // import external actions
-import { appActions } from '../app/index'
 
 export const searchActions = {
 	TOGGLE_SEARCH_FIELD: 'TOGGLE_SEARCH_FIELD',

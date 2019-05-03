@@ -34,7 +34,9 @@ class App extends Component {
 	componentWillUpdate ( nextProps ) {
 		const {message, error} = nextProps.app;
 		if (message !== this.props.app.message || error !== this.props.app.error) {
-			this.notifyA(message, error)
+			if(message) {
+				this.notifyA(message.split('?')[0], error)
+			}
 		}
 		this.props.router.listen(() => {
 			this.props.urlChange();

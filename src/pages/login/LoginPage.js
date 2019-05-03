@@ -74,7 +74,6 @@ class LoginPage extends Component {
 		const {message} = this.props;
 		return (
 			<div className="body">
-				<h1 className="title-agile text-center"></h1>
 
 				<div className="content-w3ls">
 					<div className="content-top-agile">

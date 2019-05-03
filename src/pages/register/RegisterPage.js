@@ -47,11 +47,9 @@ class RegisterPage extends Component {
 
 	render () {
 
-		const {message, status} = this.props;
+		const {message} = this.props;
 		return (
 			<div className="body">
-				<h1 className="title-agile text-center"></h1>
-
 				<div className="content-w3ls">
 					<div className="content-top-agile">
 						<h2>Register</h2>

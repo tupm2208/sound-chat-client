@@ -23,9 +23,6 @@ class Fingerprint extends Component {
 		joinRoom(params.id, router);
 	}
 
-	componentWillUpdate ( nextProps ) {
-		
-	}
 
 	render () {
 
@@ -42,7 +39,7 @@ class Fingerprint extends Component {
 //  CONNECT
 //-------------------------------------
 
-const mapStateToProps = ( state ) => {
+const mapStateToProps = ( ) => {
 	return {
 	}
 }

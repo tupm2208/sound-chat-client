@@ -1,5 +1,5 @@
 // API
-import { youtubeApi, roomApi, mediaApi } from '../api/index'
+import { roomApi } from '../api/index'
 
 export const roomListActions = {
 	IS_FETCHING: 'IS_FETCHING',

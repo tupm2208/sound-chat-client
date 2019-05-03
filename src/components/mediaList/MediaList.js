@@ -1,6 +1,5 @@
 // Libs & utils
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 // import img from '../../assets/images/thumb-up.png'
 
@@ -8,12 +7,6 @@ import classNames from 'classnames'
 import './MediaList.css'
 
 export default class MediaList extends Component {
-	static propTypes = {
-		// onMediaSend: PropTypes.func.isRequired,
-		// partyId: PropTypes.string.isRequired,
-		// userName: PropTypes.string,
-		// medias: PropTypes.array
-	}
 
 	componentDidMount () {
 		this.mediaBox.scrollTop = this.mediaBox.scrollHeight

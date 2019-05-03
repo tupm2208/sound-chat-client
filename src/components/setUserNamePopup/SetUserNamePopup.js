@@ -9,11 +9,11 @@ import './SetUserNamePopup.css'
 export default class SetUserNamePopup extends Component {
 	static propTypes = {
 		isVisible: PropTypes.bool.isRequired,
-		handleSetUserName: PropTypes.func.isRequired
+		handleSetNewRoomName: PropTypes.func.isRequired
 	}
 
 	render () {
-		const { isVisible, handleSetUserName } = this.props
+		const { isVisible, handleSetNewRoomName, callBackCreateRoom } = this.props
 
 		// Hide the createUserName block if the user is not in the process of creating a username
 		const setUserNamePopupCssClasses = classNames ( 'set-username-popup-wrapper', {
@@ -23,8 +23,8 @@ export default class SetUserNamePopup extends Component {
 		return (
 			<div className={setUserNamePopupCssClasses}>
 				<div className="set-username-popup">
-					<span className="create-username-header">Who are you ?</span>
-					<span className="create-username-description">Let other people know who you are by choosing a display / username</span>
+					<span className="create-username-header">What is new party's name? ?</span>
+					<span className="create-username-description">Let everybody knows the name of the room!</span>
 
 					<div className="username-details">
 
@@ -33,14 +33,14 @@ export default class SetUserNamePopup extends Component {
 							autoComplete="off"
 							className="input user-name"
 							maxLength="60"
-							placeholder="Username / display name"
+							placeholder="Room's name"
 							tabIndex="0"
 							type="text"
 						/>
 					</div>
 
 					<div className="create-username button" onClick={() => {
-						handleSetUserName ( this.input.value.trim () )
+						handleSetNewRoomName ( this.input.value.trim (), callBackCreateRoom )
 					}}>Continue
 					</div>
 				</div>
