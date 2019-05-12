@@ -33,7 +33,7 @@ export default class MobileDevicePlayerDialog extends Component {
 		internalVideoPlayer.playVideo ()
 		emitNewPlayerStateToServer ( {
 			status: 'playing',
-			media_time: partyVideoPlayerState.media_time
+			video_time: partyVideoPlayerState.video_time
 		}, partyId )
 	}
 

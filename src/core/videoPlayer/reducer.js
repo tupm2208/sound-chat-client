@@ -10,7 +10,7 @@ const initialState = Immutable ( {
 	videoPlayerIsLoaded: false,
 	videoPlayerState: {
 		status: 'unstarted',
-		media_time: 0
+		video_time: 0
 	},
 	videoProgress: 0
 } )

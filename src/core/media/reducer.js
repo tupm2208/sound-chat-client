@@ -6,7 +6,7 @@ import { mediaActions } from './index'
 
 const initialState = Immutable ( {
 	status: 'pausing',
-	media_time: 0,
+	video_time: 0,
 	total_vote: 0,
 	url: '',
 	id: 0

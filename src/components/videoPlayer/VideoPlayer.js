@@ -67,41 +67,41 @@ export default class VideoPlayer extends Component {
 	 * @param internalVideoPlayer
 	 */
 	handleInitialPlayerStateSynchronization = ( currentPartyPlayerState, internalVideoPlayer ) => {
-		const isInitialPlayerStateForParty = currentPartyPlayerState.media_time === 0
+		const isInitialPlayerStateForParty = currentPartyPlayerState.video_time === 0
 		const isInitialPlayerStateForUser = internalVideoPlayer.getCurrentTime () === 0
 		if ( !isInitialPlayerStateForParty && isInitialPlayerStateForUser ) {
-			internalVideoPlayer.seekTo ( currentPartyPlayerState.media_time )
+			internalVideoPlayer.seekTo ( currentPartyPlayerState.video_time )
 		}
 	}
 
 	/**
 	 * When the status for the party updates -> adjust this clients' videoPlayer to
-	 * match the media_time of the party
+	 * match the video_time of the party
 	 * @param prevPartyPlayerState
 	 * @param currentPartyPlayerState
 	 * @param internalVideoPlayer
 	 */
 	handleSeekToCommandsFromServer = ( prevPartyPlayerState, currentPartyPlayerState, internalVideoPlayer ) => {
 		const partyPlayerStateUpdated = prevPartyPlayerState !== currentPartyPlayerState
-		const isInitialPlayerStateForParty = currentPartyPlayerState.media_time === 0
+		const isInitialPlayerStateForParty = currentPartyPlayerState.video_time === 0
 		const isNewPlayerState = prevPartyPlayerState.status !== currentPartyPlayerState.status ||
-			prevPartyPlayerState.media_time !== currentPartyPlayerState.media_time
+			prevPartyPlayerState.video_time !== currentPartyPlayerState.video_time
 
 		if ( partyPlayerStateUpdated && isNewPlayerState && !isInitialPlayerStateForParty ) {
-			internalVideoPlayer.seekTo ( currentPartyPlayerState.media_time + 0.1 )
+			internalVideoPlayer.seekTo ( currentPartyPlayerState.video_time + 0.1 )
 		}
 	}
 
 	/**
-	 * Returns a users' status object containing the status and media_time
+	 * Returns a users' status object containing the status and video_time
 	 * @param status
 	 * @param videoPlayer
-	 * @returns {{status: *, media_time}}
+	 * @returns {{status: *, video_time}}
 	 */
 	constructUserPlayerState = ( status, videoPlayer ) => {
 		return {
 			status,
-			media_time: videoPlayer.getCurrentTime ()
+			video_time: videoPlayer.getCurrentTime ()
 		}
 	}
 
@@ -168,7 +168,7 @@ export default class VideoPlayer extends Component {
 						console.log("end video: ", videoProgress);
 						emitNewPlayerStateToServer ( {
 							status: 'finished',
-							media_time: videoProgress
+							video_time: videoProgress
 						}, partyId )
 					}}
 					onProgress={ setPlayerProgress }

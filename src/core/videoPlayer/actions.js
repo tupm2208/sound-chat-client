@@ -63,11 +63,11 @@ export const videoPlayerActions = {
 
 const debouncedPlayerStateChangeHandler = debounce ( ( dispatch, userVideoPlayerState ) => {
 	const clientIsReady = userVideoPlayerState.status !== 'buffering'
-	const media_time = userVideoPlayerState.media_time
+	const video_time = userVideoPlayerState.video_time
 
 	dispatch ( videoPlayerActions.setUserVideoPlayerState ( userVideoPlayerState ) )
 	dispatch ( userActions.emitClientReadyStateToServer ( {
 		clientIsReady,
-		media_time
+		video_time
 	} ) )
 }, 500 )

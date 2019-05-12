@@ -14,12 +14,12 @@ export const roomApi = {
 	get: (id, type) => {
 		const params = {type}
 
-		return httpRequest.get(`rooms/${id}/media`, params)
+		return httpRequest.get(`rooms/${id}/videos`, params)
 	},
 
 	changeMediaState: (id, params) => {
 
-		return httpRequest.put(`rooms/${id}/media`, params)
+		return httpRequest.put(`rooms/${id}/videos`, params)
 	},
 
 	getRoomUsers: (id) => {

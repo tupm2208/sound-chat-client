@@ -62,7 +62,7 @@ export default class VideoPlayerControls extends Component {
 				 onClick={ () =>
 					 emitNewPlayerStateToServer ( {
 						 status: videoIsPlaying ? 'pausing' : 'playing',
-						 media_time: progressInSeconds
+						 video_time: progressInSeconds
 					 }, partyId )
 				 }>
 
@@ -74,7 +74,7 @@ export default class VideoPlayerControls extends Component {
 						 onClick={ ( event ) => {
 							 emitNewPlayerStateToServer ( {
 								 status: 'seeking',
-								 media_time: videoUtils.getAmountOfSecondsAtXPos ( event, videoDuration ),
+								 video_time: videoUtils.getAmountOfSecondsAtXPos ( event, videoDuration ),
 								//  videoStatus: videoIsPlaying ? 'pausing' : 'playing',
 							 }, partyId )
 						 } }>
@@ -87,7 +87,7 @@ export default class VideoPlayerControls extends Component {
 							  onClick={ () =>
 								  emitNewPlayerStateToServer ( {
 									  status: videoIsPlaying ? 'pausing' : 'playing',
-									  media_time: progressInSeconds
+									  video_time: progressInSeconds
 								  }, partyId )
 							  }/>
 						<span className={muteBtnClassNames} onClick={ handleMuteBtnPressed }/>

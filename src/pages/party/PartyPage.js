@@ -70,8 +70,8 @@ class PartyPage extends Component {
 		const {partyVideoPlayerState, userVideoPlayerState, emitNewPlayerStateForPartyToServer} = prevProps;
 
 		if(this.props.userVideoPlayerState.status && partyVideoPlayerState.status === 'seeking' && userVideoPlayerState.status !== 'buffering') {
-			const {media_time} = partyVideoPlayerState;
-			emitNewPlayerStateForPartyToServer({status: "ready", media_time}, this.partyId);
+			const {video_time} = partyVideoPlayerState;
+			emitNewPlayerStateForPartyToServer({status: "ready", video_time}, this.partyId);
 		}
 		
 		if ( !prevProps.userName && this.props.userName ) {
