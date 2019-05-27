@@ -15,11 +15,11 @@ app.get('/ping', function (req, res) {
 });
 
 let apiUrl = 'http://localhost:8000';
-console.log(process.env.NODE_ENV)
+
 switch (process.env.NODE_ENV) {
   case 'dev':
   case 'production':
-    apiUrl = 'http://soundchat-server:8000'
+    apiUrl = 'http://soundchat-server'
     break;
   default:
     break;
