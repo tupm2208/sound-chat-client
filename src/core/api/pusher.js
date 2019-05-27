@@ -5,7 +5,7 @@ import config from '../configs'
 
 const PUSHER_URL = config.PUSHER_URL;
 
-const soket = new Pusher('8ca50ca8ff937987bdce', {
+const soket = new Pusher(config.PUSER_KEY, {
     cluster: 'ap1',
     authEndpoint: `${PUSHER_URL}pusher/auth`,
     auth: {

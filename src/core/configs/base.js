@@ -4,4 +4,6 @@ export class BaseConfig {
     YOUTUBE_SEARCH_URL = `https://www.googleapis.com/youtube/v3/search`;
     BASE_URL = `http://localhost:8000/api/`;
     PUSHER_URL = `http://localhost:8000/`;
+    PUSHER_NAMESPACE = '';
+    PUSER_KEY = '8ca50ca8ff937987bdce';
 }

@@ -1,4 +1,6 @@
 import { roomApi, youtubeApi, pusherApi, messageApi, mediaApi } from '../api/index'
+import config from '../configs'
+const PUSHER_NAMESPACE = config.PUSHER_NAMESPACE
 
 export const partyActions = {
 
@@ -32,7 +34,7 @@ export const partyActions = {
 
 	subscribeRoom: (id) => {
 		return dispatch => {
-			const channel = pusherApi.pusher.subscribe(`presence-room-${id}-`);
+			const channel = pusherApi.pusher.subscribe(`presence-room-${id}-${PUSHER_NAMESPACE}`);
 			channel.bind('media_status_changed', (data) => {
 				console.log("media_status_changed", data);
 				data.data.status = data.event;
