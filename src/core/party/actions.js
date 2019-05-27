@@ -27,7 +27,7 @@ export const partyActions = {
 
 	unSubscribeRoom: (id) => {
 		return dispatch => {
-			pusherApi.pusher.unsubscribe(`presence-room-${id}-`);
+			pusherApi.pusher.unsubscribe(`presence-room-${id}-${config.PUSHER_NAMESPACE}`);
 		}
 	},
 
