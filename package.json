@@ -1,5 +1,5 @@
 {
-  "name": "soundchat",
+  "name": "sound-chat-client",
   "version": "1.0.0",
   "description": "",
   "repository": {
@@ -17,13 +17,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-prod": "npm run start-prod:server",
-    "start-prod:server": "DEBUG=APP:MAIN cross-env NODE_ENV=production node --require reify ./server/main.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "heroku-postbuild": "npm run build",
-    "postinstall": "npm run build"
   },
   "proxy": {
     "/socket.io": {

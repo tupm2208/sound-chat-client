@@ -45,6 +45,12 @@ class RegisterPage extends Component {
 		}
 	}
 
+	goToLogin() {
+		const { router } = this.props;
+
+		router.push('/login')
+	}
+
 	render () {
 
 		const {message} = this.props;
@@ -88,7 +94,7 @@ class RegisterPage extends Component {
 								</div>
 							</div>
 							
-							<small><a style={{fontSize: "14px"}} >Already created account? </a></small>
+							<small><a style={{fontSize: "14px"}} onClick={this.goToLogin.bind(this)} >Already created account? </a></small>
 							
 							
 							<div className="wthree-field">
