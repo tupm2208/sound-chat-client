@@ -4,7 +4,6 @@ import { TestConfig } from "../configs/test";
 
 const env = process.env.NODE_ENV || "development";
 let config = new DevelopmentConfig();
-console.log("config: ", config)
 if (env === "test") {
     config = new TestConfig()
 } else if (env === "production") {
