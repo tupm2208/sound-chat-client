@@ -217,7 +217,7 @@ export const partyActions = {
 					}
 				})
 				dispatch({type: "STOP_LOADING"})
-				partyActions.getVideoInfo(res.data.media, dispatch)
+				partyActions.getVideoInfo(res.data.videos, dispatch)
 			}, error => {
 				dispatch({type: "STOP_LOADING"})
 			})
