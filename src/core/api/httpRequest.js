@@ -1,9 +1,10 @@
 import { restUtils } from '../utils/index'
 
 // Constants
-import { BASE_URL } from "../constants"
+import configs from "../configs"
 import { ssStorage } from '../utils/sessionStorage'
 
+const BASE_URL = configs.BASE_URL
 
 function getHeaders() {
     return {
