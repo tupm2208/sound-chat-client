@@ -21,6 +21,7 @@ export const mediaActions = {
 		return dispatch => {
 			mediaApi.upvote(media.id, partyId).then( res => {
 				media.is_voted = true;
+				media.total_vote = res.data.total_vote
 				dispatch({
 					type: "VOTE_MEDIA",
 					payload: media
@@ -34,6 +35,7 @@ export const mediaActions = {
 			dispatch({type: ""})
 			mediaApi.downvote(media.id).then( res => {
 				media.is_voted = false;
+				media.total_vote = res.data.total_vote
 				dispatch({
 					type: "VOTE_MEDIA",
 					payload: media
