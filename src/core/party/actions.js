@@ -129,6 +129,9 @@ export const partyActions = {
 	getParty: (id) => {
 		return (dispatch) => {
 			roomApi.get(id, 'current').then( res => {
+				if(!res.data) {
+					return;
+				}
 				dispatch({
 					type: partyActions.GET_MEDIA_SUCCESSFUL,
 					payload: res.data
