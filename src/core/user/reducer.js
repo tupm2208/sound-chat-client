@@ -21,6 +21,14 @@ export const userReducer = ( state = initialState, action ) => {
 
 			persistUtils.saveProperty('user', action.payload)
 			return state.merge(action.payload)
+		
+		case 'SIGN_OUT':
+			return state.merge({
+				name: '',
+				id: '',
+				email: '',
+				online: ''
+			})
 
 		default:
 			return state

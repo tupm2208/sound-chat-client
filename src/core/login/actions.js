@@ -32,6 +32,13 @@ export const loginAction = {
 				} else {
 					router.push('/')
 				}
+				dispatch({
+					type: 'LOGIN_SUCCESS'
+				})
+				dispatch({
+					type: 'SET_USER',
+					payload: data
+				})
 				dispatch (loginAction.loginSuccess ({message, status: true}))
 			}, error => {
 				console.log(error);

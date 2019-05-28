@@ -15,6 +15,13 @@ export const appActions = {
 				type: "URL_CHANGE"
 			})
 		}
+	},
+	signOut: () => {
+		return dispatch => {
+			dispatch({
+				type: 'SIGN_OUT',
+			})
+		}
 	}
 
 }

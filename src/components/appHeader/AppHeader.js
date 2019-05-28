@@ -30,6 +30,8 @@ export default class AppHeader extends Component {
 
 	logout = () => {
 		persistUtils.saveProperty("access_token",'');
+		persistUtils.saveProperty("user",{});
+		this.props.signOut()
 		this.props.router.push('/login')
 	}
 

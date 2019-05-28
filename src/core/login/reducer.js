@@ -21,7 +21,8 @@ export const loginReducer = ( state = initialState, action ) => {
 
 		case loginAction.LOGIN_ERROR_STATE:
 			return state.merge(action.payload);
-
+		case 'URL_CHANGE':
+			return state.set('message', '')
 		default:
 			return state
 	}

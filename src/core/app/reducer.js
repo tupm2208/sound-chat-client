@@ -21,6 +21,10 @@ export const appReducer = ( state = initialState, action ) => {
 		
 		case "LOGIN_STATE":
 			return state.merge(action.payload);
+		case 'LOGIN_SUCCESS':
+			return state.set('isLogin', true)
+		case 'SIGN_OUT':
+			return state.set('isLogin', false)
 		default:
 			return state
 	}

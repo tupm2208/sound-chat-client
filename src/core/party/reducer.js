@@ -53,6 +53,7 @@ export const partyReducer = ( state = initialState, action ) => {
 
 		case partyActions.VOTE_MEDIA:
 			const newMedias2 = JSON.parse(JSON.stringify(state.medias))
+			
 			newMedias2.forEach(element => {
 				if(action.payload.media === element.id || action.payload.id === element.id) {
 					if(action.payload.total_vote !== undefined) {

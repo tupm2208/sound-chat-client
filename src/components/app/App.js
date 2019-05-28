@@ -76,6 +76,7 @@ class App extends Component {
 					handleSearch={this.handleSearch.bind(this)}
 					router={this.props.router}
 					isLogin={this.props.isLogin}
+					signOut={this.props.signOut}
 				/>
 
 				<main className="main">
@@ -110,7 +111,8 @@ const mapDispatchToProps = {
 	setUserName: userActions.setUserName,
 	startLoading: loadingActions.startLoading,
 	stopLoading: loadingActions.stopLoading,
-	urlChange: appActions.urlChange
+	urlChange: appActions.urlChange,
+	signOut: appActions.signOut
 }
 
 App = connect ( mapStateToProps, mapDispatchToProps ) ( App )
