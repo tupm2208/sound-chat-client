@@ -5,5 +5,5 @@ export class BaseConfig {
     BASE_URL = `http://localhost:8000/api/`;
     PUSHER_URL = `http://localhost:8000/api/`;
     PUSHER_NAMESPACE = '';
-    PUSER_KEY = '8ca50ca8ff937987bdce';
+    PUSHER_KEY = '8ca50ca8ff937987bdce';
 }

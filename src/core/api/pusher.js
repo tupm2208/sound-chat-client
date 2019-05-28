@@ -5,7 +5,7 @@ import config from '../configs'
 
 const PUSHER_URL = config.PUSHER_URL;
 
-const soket = new Pusher(config.PUSER_KEY, {
+const socket = new Pusher(config.PUSHER_KEY, {
     cluster: 'ap1',
     authEndpoint: `${PUSHER_URL}pusher/auth`,
     auth: {
@@ -17,7 +17,7 @@ const soket = new Pusher(config.PUSER_KEY, {
 
 export const pusherApi = {
     changeAccessToken: () => {
-        soket.config.auth.headers.Authorization = `Bearer ${persistUtils.loadProperty('access_token', '')}`
+        socket.config.auth.headers.Authorization = `Bearer ${persistUtils.loadProperty('access_token', '')}`
     },
-    pusher: soket
+    pusher: socket
 }
