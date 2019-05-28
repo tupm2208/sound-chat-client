@@ -35,8 +35,8 @@ export const partyActions = {
 	subscribeRoom: (id) => {
 		return dispatch => {
 			const channel = pusherApi.pusher.subscribe(`presence-room-${id}-${PUSHER_NAMESPACE}`);
-			channel.bind('media_status_changed', (data) => {
-				console.log("media_status_changed", data);
+			channel.bind('video_status_changed', (data) => {
+				console.log("video_status_changed", data);
 				data.data.status = data.event;
 				dispatch({
 					type: partyActions.SET_VIDEO_PLAYER_STATE,
