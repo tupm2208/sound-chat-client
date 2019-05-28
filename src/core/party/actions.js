@@ -71,8 +71,8 @@ export const partyActions = {
 				}
 			})
 
-			channel.bind('new_media', (data) => {
-				console.log("new media created: ", data)
+			channel.bind('new_video', (data) => {
+				console.log("new video created: ", data)
 				const id = getYoutubeId(data.url);
 				youtubeApi.fetchYoutubeIdResults(id).then( res => {
 					if(res.items.length) {
