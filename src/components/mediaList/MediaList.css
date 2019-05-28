@@ -5,6 +5,7 @@
     background: #1d1e1f;
     display: flex;
     flex-direction: column;
+    height: 250px;
 }
 
 .media-box .media-box{
