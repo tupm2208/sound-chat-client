@@ -63,6 +63,7 @@ export const videoListActions = {
 				dispatch ( videoListActions.isFetching ( false ) )
 			}
 			catch ( err ) {
+				dispatch ( videoListActions.isFetching ( false ) )
 			}
 		}
 	}
