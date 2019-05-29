@@ -24,7 +24,7 @@ export const registerAction = {
                     type: 'TOASTER',
                     payload: {
                         error: 0,
-                        message: "account created"
+                        message
                     }
                 })
                 dispatch (registerAction.registerSuccess ({message, status: true}))
