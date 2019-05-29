@@ -9,7 +9,22 @@ import './SetUserNamePopup.css'
 export default class SetUserNamePopup extends Component {
 	static propTypes = {
 		isVisible: PropTypes.bool.isRequired,
-		handleSetNewRoomName: PropTypes.func.isRequired
+		handleSetNewRoomName: PropTypes.func.isRequired,
+		closePopup: PropTypes.func.isRequired
+	}
+
+	escFunction(event){
+		if(event.keyCode === 27) {
+		  //Do whatever when esc is pressed
+		//   console.log("btn")
+		this.props.closePopup()
+		}
+	}
+	componentDidMount(){
+		document.addEventListener("keydown", this.escFunction.bind(this), false);
+	}
+	componentWillUnmount(){
+		document.removeEventListener("keydown", this.escFunction.bind(this), false);
 	}
 
 	render () {
@@ -23,7 +38,7 @@ export default class SetUserNamePopup extends Component {
 		return (
 			<div className={setUserNamePopupCssClasses}>
 				<div className="set-username-popup">
-					<span className="create-username-header">What is new party's name? ?</span>
+					<span className="create-username-header">What is new party's name?</span>
 					<span className="create-username-description">Let everybody knows the name of the room!</span>
 
 					<div className="username-details">

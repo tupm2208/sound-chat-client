@@ -216,7 +216,8 @@ export const partyActions = {
 					payload: {
 						usersInParty: res.data.participants,
 						messagesInParty: res.data.messages,
-						fingerprint: res.data.fingerprint
+						fingerprint: res.data.fingerprint,
+						name: res.data.name
 					}
 				})
 				dispatch({type: "STOP_LOADING"})

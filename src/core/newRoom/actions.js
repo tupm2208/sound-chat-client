@@ -32,6 +32,18 @@ export const newRoomAction = {
 		})
 	},
 
+	closePopup: () => dispatch => {
+		dispatch( {
+			type: newRoomAction.TOGGLE_SET_ROOM_NAME_POPUP,
+			payload: false
+		})
+
+		dispatch({
+			type: newRoomAction.SET_ROOM_NAME,
+			payload: {name: ''}
+		})
+	},
+
 	setPreData: (userId, videoId) => dispatch => {
 		dispatch({
 			type: newRoomAction.SET_ROOM_NAME,

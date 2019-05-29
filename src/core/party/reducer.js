@@ -18,7 +18,8 @@ const initialState = Immutable ( {
 	usersInParty: [],
 	messagesInParty: [],
 	fingerprint: '',
-	medias: []
+	medias: [],
+	name: ''
 } )
 
 export const partyReducer = ( state = initialState, action ) => {

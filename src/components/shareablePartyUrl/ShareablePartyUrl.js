@@ -16,11 +16,11 @@ export default class ShareablePartyUrl extends Component {
 	}
 
 	render () {
-		const { partyUrl } = this.props
+		const { partyUrl,roomName  } = this.props
 
 		return (
 			<div className="share-party-url">
-				<h2 className="title">Your shareable party URL:</h2>
+				<h2 className="title">Your <i style={{color: 'white', textTransform: 'uppercase'}}>{roomName}</i> party URL:</h2>
 				<input type="text"
 					   readOnly='readonly'
 					   value={partyUrl}

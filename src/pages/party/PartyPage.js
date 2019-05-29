@@ -106,7 +106,8 @@ class PartyPage extends Component {
 			fingerprint,
 			medias,
 			upvote,
-			downvote
+			downvote,
+			roomName
 		} = props
 		const partyUrl = window.location.href.split ( 'party' )[ 0 ] + "fingerprint/" + fingerprint;
 
@@ -114,7 +115,7 @@ class PartyPage extends Component {
 			<div className="party-page">
 				<div className="g-row">
 					<div className="g-col">
-						<ShareablePartyUrl partyUrl={partyUrl}/>
+						<ShareablePartyUrl partyUrl={partyUrl} roomName={roomName}/>
 
 						<div className="content-flex-horizontal">
 							<div className="player-container">
@@ -216,6 +217,7 @@ const mapStateToProps = ( state ) => {
 		videoPlayerIsMaximized: state.videoPlayer.videoPlayerIsMaximized,
 		videoPlayerIsLoaded: state.videoPlayer.videoPlayerIsLoaded,
 		fingerprint: state.party.fingerprint,
+		roomName: state.party.name,
 		medias: state.party.medias
 	}
 }

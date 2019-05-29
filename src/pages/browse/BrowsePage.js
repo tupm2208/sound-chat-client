@@ -101,7 +101,7 @@ class BrowsePage extends Component {
 	}
 
 	render () {
-		const { user, isFetchingVideos, youtubeVideos, isShow, setRoomName } = this.props
+		const { user, isFetchingVideos, youtubeVideos, isShow, setRoomName, closePopup } = this.props
 		return (
 			<div className="browse-page">
 				<PageHeader
@@ -125,12 +125,13 @@ class BrowsePage extends Component {
 						youtubeVideos={youtubeVideos}
 						handleVideoSelection={this.handleVideoSelection.bind(this)}
 					/>
-
-					<SetUserNamePopup
+					{isShow? <SetUserNamePopup
 						isVisible={isShow}
 						handleSetNewRoomName={setRoomName}
 						callBackCreateRoom={this.callBackCreateRoom.bind(this)}
-					/>
+						closePopup={closePopup}
+					/>: ''}
+					
 
 					{ generalUtils.isLogin() && this.renderRoomList() }
 				</div>
@@ -167,7 +168,8 @@ const mapDispatchToProps = {
 	handleRoomSelection: roomListActions.handleRoomSelection,
 	setRoomName: newRoomAction.setRoomName,
 	setPreData: newRoomAction.setPreData,
-	showPopup: newRoomAction.showPopup
+	showPopup: newRoomAction.showPopup,
+	closePopup: newRoomAction.closePopup
 }
 
 BrowsePage = connect (
