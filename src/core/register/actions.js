@@ -32,7 +32,7 @@ export const registerAction = {
                 const redirect = router.location.query.redirect
                 router.push({pathname: "/login", query: {redirect}})
             }, error => {
-                dispatch(registerAction.registerError(error))
+                // dispatch(registerAction.registerError(error))
                 registerAction.handleErrorData(error.error_data, dispatch)
             })
 

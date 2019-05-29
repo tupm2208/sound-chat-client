@@ -25,6 +25,8 @@ export const appReducer = ( state = initialState, action ) => {
 			return state.set('isLogin', true)
 		case 'SIGN_OUT':
 			return state.set('isLogin', false)
+		case 'URL_CHANGE':
+			return state.merge({error: 0, message: ''})
 		default:
 			return state
 	}

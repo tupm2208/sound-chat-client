@@ -40,10 +40,24 @@ export const loginAction = {
 					payload: data
 				})
 				dispatch (loginAction.loginSuccess ({message, status: true}))
+				dispatch({
+                    type: 'TOASTER',
+                    payload: {
+                        error: 0,
+                        message: "login successful!"
+                    }
+                })
 			}, error => {
 				console.log(error);
 				
-				dispatch(loginAction.loginError(error))
+				// dispatch(loginAction.loginError(error))
+				dispatch({
+                    type: 'TOASTER',
+                    payload: {
+                        error: 1,
+                        message: "Wrong email or password!"
+                    }
+                })
 			})
 			dispatch({type: "STOP_LOADING"})
 			
