@@ -44,7 +44,7 @@ export const loginAction = {
                     type: 'TOASTER',
                     payload: {
                         error: 0,
-                        message: "login successful!"
+                        message: "Login successful!"
                     }
                 })
 			}, error => {

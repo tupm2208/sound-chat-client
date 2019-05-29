@@ -9,8 +9,8 @@ export const newRoomAction = {
 			dispatch({
 				type: 'TOASTER',
 				payload: {
-					error: 0,
-					message: 'room name cannot be null!'
+					error: 1,
+					message: 'Room name cannot be null!'
 				}
 			})
 		} else {

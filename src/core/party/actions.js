@@ -64,7 +64,7 @@ export const partyActions = {
 					dispatch({
 						type: 'TOASTER',
 						payload: {
-							message: "No song is playing! Please adding new url to play!",
+							message: "No video is playing! Please adding new url to play!",
 							error: 0
 						}
 					})
@@ -241,7 +241,7 @@ export const partyActions = {
 							type: "TOASTER",
 							payload: {
 								error: 1,
-								message: `cannot create media?${new Date().getTime()}`
+								message: `Cannot create media?${new Date().getTime()}`
 							}
 						})
 					})
@@ -250,7 +250,7 @@ export const partyActions = {
 						type: "TOASTER",
 						payload: {
 							error: 1,
-							message: `invalid youtube link?${new Date().getTime()}`
+							message: `Invalid youtube link?${new Date().getTime()}`
 						}
 					})
 				}
