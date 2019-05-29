@@ -4,6 +4,15 @@ import {ssStorage} from '../utils/sessionStorage'
 
 export const fingerprintActions = {
 
+	SET_IS_INIT: 'SET_IS_INIT',
+
+	resetIsInit: () => dispatch => {
+		dispatch({
+			type: fingerprintActions.SET_IS_INIT,
+			payload: false
+		})
+	},
+
 	joinRoom: ( fingerprint, router) => {
 		return (dispatch) => {
 			
@@ -18,6 +27,10 @@ export const fingerprintActions = {
 				dispatch({type: 'STOP_LOADING'})
 				console.log("join room: ", res);
 				router.push(`/party/${res.data.id}`)
+				dispatch({
+					type: fingerprintActions.SET_IS_INIT,
+					payload: true
+				})
 			}, error => {
 				dispatch({type: 'STOP_LOADING'})
 				console.log("error join room: ", error);

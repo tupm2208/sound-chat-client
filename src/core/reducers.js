@@ -14,6 +14,7 @@ import { loadingReducer } from './loading'
 import { mediaReducer } from './media'
 import { roomListReducer } from './rooms'
 import { newRoomReducer } from './newRoom'
+import { fingerprintReducer } from './fingerprint';
 
 export default combineReducers ( {
 	app: appReducer,
@@ -27,5 +28,6 @@ export default combineReducers ( {
 	loading: loadingReducer,
 	currentMedia: mediaReducer,
 	rooms: roomListReducer,
-	newRoom: newRoomReducer
+	newRoom: newRoomReducer,
+	fingerprint: fingerprintReducer
 } )

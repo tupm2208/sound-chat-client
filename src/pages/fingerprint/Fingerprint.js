@@ -16,10 +16,11 @@ class Fingerprint extends Component {
 
 	componentDidMount () {
 		
-		// this.props.loadYoutubeVideos ( this.props.params.query )
 		console.log("this.prop finger: ", this.props)
-		if(this.props.location.action === 'POP') {
+		if(this.props.isInit) {
 			this.props.router.push('/')
+			this.props.resetIsInit()
+			return;
 		}
 		const { joinRoom, params, router} = this.props;
 
@@ -42,13 +43,15 @@ class Fingerprint extends Component {
 //  CONNECT
 //-------------------------------------
 
-const mapStateToProps = ( ) => {
+const mapStateToProps = (state) => {
 	return {
+		isInit: state.fingerprint.isInit
 	}
 }
 
 const mapDispatchToProps = {
-	joinRoom: fingerprintActions.joinRoom
+	joinRoom: fingerprintActions.joinRoom,
+	resetIsInit: fingerprintActions.resetIsInit
 }
 
 Fingerprint = connect (
