@@ -52,7 +52,7 @@ class PartyPage extends Component {
 		const id = router.params.partyId;
 		getParty(id)
 		subscribeRoom(id)
-		getRoomInfo(id);
+		getRoomInfo(id, this.props.router);
 		// If this user has a userName -> try to connect to the selected party
 		if ( userName ) {
 			connectToParty ( userName, this.partyId )

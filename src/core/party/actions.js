@@ -194,7 +194,7 @@ export const partyActions = {
 		}
 	},
 
-	getRoomInfo: (partyId) => {
+	getRoomInfo: (partyId, router) => {
 
 		return dispatch => {
 			dispatch({type: "START_LOADING"})
@@ -224,6 +224,14 @@ export const partyActions = {
 				partyActions.getVideoInfo(res.data.videos, dispatch)
 			}, error => {
 				dispatch({type: "STOP_LOADING"})
+				router.push('/')
+				dispatch({
+					type: "TOASTER",
+					payload: {
+						error: 1,
+						message: error.message
+					}
+				})
 			})
 		}
 	},
