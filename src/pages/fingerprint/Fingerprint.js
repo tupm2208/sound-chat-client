@@ -18,6 +18,9 @@ class Fingerprint extends Component {
 		
 		// this.props.loadYoutubeVideos ( this.props.params.query )
 		console.log("this.prop finger: ", this.props)
+		if(this.props.location.action === 'POP') {
+			this.props.router.push('/')
+		}
 		const { joinRoom, params, router} = this.props;
 
 		joinRoom(params.id, router);
