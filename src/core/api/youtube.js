@@ -3,8 +3,7 @@
 import queryString from 'query-string'
 import { restUtils } from '../utils/index'
 
-// Constants
-import { YOUTUBE_SEARCH_URL, YOUTUBE_API_KEY, YOUTUBE_API_BASE_URL } from "../constants"
+import config from "../configs" 
 
 export const youtubeApi = {
 	/**
@@ -21,14 +20,14 @@ export const youtubeApi = {
 
 		const params = queryString.stringify ( {
 			videoType,
-			'key': YOUTUBE_API_KEY,
+			'key': config.YOUTUBE_API_KEY,
 			'q': query,
 			'part': 'snippet',
 			'type': 'video',
 			'maxResults': 50
 		} )
 
-		return fetch ( `${YOUTUBE_SEARCH_URL}?${params}`, options )
+		return fetch ( `${config.YOUTUBE_SEARCH_URL}?${params}`, options )
 			.then ( restUtils.handleRestResponse )
 			.then ( ( response ) => response )
 	},
@@ -47,12 +46,12 @@ export const youtubeApi = {
 
 		const params = queryString.stringify ( {
 			videoType,
-			'key': YOUTUBE_API_KEY,
+			'key': config.YOUTUBE_API_KEY,
 			'id': id,
 			'part': 'snippet',
 		} )
 
-		return fetch ( `${YOUTUBE_API_BASE_URL}/videos?${params}`, options )
+		return fetch ( `${config.YOUTUBE_API_BASE_URL}/videos?${params}`, options )
 			.then ( restUtils.handleRestResponse )
 			.then ( ( response ) => response )
 	}
